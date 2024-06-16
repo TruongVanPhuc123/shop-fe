@@ -4,6 +4,8 @@ import HomePage from "../pages/HomePage";
 import DetailPage from "../pages/DetailPage";
 import BlankLayout from "../layouts/BlankLayout";
 import NotFoundPage from "../pages/NotFoundPage";
+import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "@/pages/RegisterPage";
 
 function Router() {
   return (
@@ -14,6 +16,8 @@ function Router() {
       </Route>
 
       <Route element={<BlankLayout />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

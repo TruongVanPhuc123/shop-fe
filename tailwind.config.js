@@ -72,6 +72,8 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         'spin-slow': 'spin 3s linear infinite',
         'bounce': 'bounce 1.5s infinite',
+        'pulse': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite ',
+
       },
       dropShadow: {
         '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
