@@ -43,12 +43,16 @@ function Navbar() {
               {logo}
             </button>
             <div className="md:flex items-center gap-12 hidden font-bold min-w-fit flex-shrink">
-              <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
-                Products
-              </span>
-              <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
-                Home
-              </span>
+              <Link to={"/products"}>
+                <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
+                  Products
+                </span>
+              </Link>
+              <Link to={"/"}>
+                <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
+                  Home
+                </span>
+              </Link>
             </div>
             <div className="lg:flex md:flex flex lg:flex-1 gap-10 items-center justify-end font-bold">
               <div className="flex-10 sm:block hidden min-w-fit flex-shrink">

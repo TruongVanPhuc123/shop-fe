@@ -6,6 +6,7 @@ import BlankLayout from "../layouts/BlankLayout";
 import NotFoundPage from "../pages/NotFoundPage";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
+import ProductsPage from "@/pages/ProductsPage";
 
 function Router() {
   return (
@@ -13,6 +14,7 @@ function Router() {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/detail/:id" element={<DetailPage />} />
+        <Route path="/products" element={<ProductsPage />} />
       </Route>
 
       <Route element={<BlankLayout />}>

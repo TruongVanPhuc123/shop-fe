@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 // import useAuth from "@/hooks/useAuth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -59,6 +59,14 @@ function LoginPage() {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col space-y-2"
         >
+          <div className="text-right">
+            <Link
+              to={"/register"}
+              className="hover:border-b-2 hover:border-blue-500 text-blue-500"
+            >
+              You haven`t a account?
+            </Link>
+          </div>
           <Input placeholder="Email" {...register("email")} />
           {errors && <p className="text-red-500">{errors.email?.message}</p>}
           <Input placeholder="Password" {...register("password")} />
