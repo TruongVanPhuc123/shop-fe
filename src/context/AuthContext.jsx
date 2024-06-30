@@ -1,7 +1,6 @@
 import { createContext, useReducer } from "react";
 import apiService from "@/app/apiService";
 // import { isValidToken } from "@/utils/jwt";
-import { toast } from "@/components/ui/use-toast";
 
 const initialState = {
   isInnitialized: false,
@@ -15,17 +14,21 @@ const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 const LOGOUT = "LOGOUT";
 const ISINITIALIZED = "ISINITIALIZED";
 
-const AuthContext = createContext(...initialState);
+const AuthContext = createContext({ ...initialState });
 
 const reducer = (state, action) => {
   const { type, payload } = action;
-  console.log(state);
   switch (type) {
     case LOGIN_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
-        user: payload.user,
+        user: payload.data,
+      };
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        user: payload.data,
       };
     default:
       return state;
@@ -46,20 +49,25 @@ function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const login = async ({ email, password }, callback) => {
-    const response = await apiService.post("/register", { email, password });
-    // console.log(response);
-    const { user, accessToken } = response.data;
+    const response = await apiService.post("/auth/login", { email, password });
+    const { data, accessToken } = response.data;
 
     setSession(accessToken);
-    dispatch({ type: LOGIN_SUCCESS, payload: { user } });
+    dispatch({ type: LOGIN_SUCCESS, payload: { data } });
     callback();
-    toast({
-      title: "Login Success",
-    });
+  };
+
+  const register = async ({ name, email, password }, callback) => {
+    const response = await apiService.post("/users", { name, email, password });
+    const { data, accessToken } = response.data;
+
+    setSession(accessToken);
+    dispatch({ type: REGISTER_SUCCESS, payload: { data } });
+    callback();
   };
 
   return (
-    <AuthContext.Provider value={{ ...state, login }}>
+    <AuthContext.Provider value={{ ...state, login, register }}>
       {children}
     </AuthContext.Provider>
   );

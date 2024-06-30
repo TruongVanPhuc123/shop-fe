@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-// import useAuth from "@/hooks/useAuth";
+import useAuth from "@/hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -16,8 +16,8 @@ const schema = yup.object({
 const defaultValues = { email: "", password: "", remember: true };
 
 function LoginPage() {
-  // const auth = useAuth();
-  // console.log(auth);
+  const auth = useAuth();
+  console.log(auth);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -32,14 +32,17 @@ function LoginPage() {
     defaultValues,
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const from = location.state?.from?.pathName || "/";
-    // const { emil, passwrod } = data;
-    console.log(data);
+    const { email, password } = data;
+    // console.log(data);
     try {
-      navigate(from);
+      await auth.login({ email, password }, () => {
+        navigate(from);
+      });
     } catch (error) {
       setError("responseError", error);
+      console.log(error.message);
     }
   };
 

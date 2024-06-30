@@ -1,12 +1,14 @@
 import { CardWithForm } from "@/components/Card";
 import ImageBox from "@/components/ImageBox";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+
 function HomePage() {
   return (
     <div className=" w-full relative lg:mt-28 mt-28">
       <section>
         <div className="absolute w-full z-20 ">
-          <div className="flex flex-col gap-5 scroll-m-20 lg:px-80 px-12 text-center tracking-tight">
+          <div className="flex flex-col gap-5 lg:px-80 px-12 text-center tracking-tight">
             <p className="lg:text-4xl text-3xl text-black text-pretty font-extrabold">
               The Joke Tax Chronicles
             </p>
@@ -146,11 +148,13 @@ function HomePage() {
               }
             />
           </div>
-          <Button variant="">More Products</Button>
+          <Button variant="">
+            <Link to={"/products"}>More Products</Link>
+          </Button>
         </div>
       </section>
       <section>
-        <div className="flex flex-col gap-20 text-center bg-slate-50 w-full h-auto p-10">
+        <div className=" flex flex-col gap-20 text-center bg-slate-50 w-full h-auto p-10">
           <p className="text-4xl font-bold">How To Create Account ?</p>
           <div className="flex lg:flex-row lg:justify-between flex-col items-center gap-10 text-center text-xl w-[100%]">
             <ImageBox

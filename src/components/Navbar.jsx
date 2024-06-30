@@ -2,8 +2,12 @@ import { SheetCard } from "./SheetCard";
 import { SheetMenu } from "./Menu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "@/hooks/useAuth";
 
 function Navbar() {
+  const auth = useAuth();
+  const user = auth.user;
+
   const [logoClick, setLogoClick] = useState(false);
 
   const hanldeClick = () => {
@@ -56,20 +60,26 @@ function Navbar() {
             </div>
             <div className="lg:flex md:flex flex lg:flex-1 gap-10 items-center justify-end font-bold">
               <div className="flex-10 sm:block hidden min-w-fit flex-shrink">
-                <ul className="flex gap-10 text-lg items-center text-[18px]">
-                  <Link to={"/login"}>
-                    <li className="hover:text-sky-500 transition delay-100 cursor-pointer">
-                      Sign in
-                    </li>
-                  </Link>
-                  <div className="text-gray-100">|</div>
-                  <Link to={"/register"}>
-                    <li className="hover:text-sky-500  transition delay-100 cursor-pointer">
-                      Create Account
-                    </li>
-                  </Link>
-                  <div className="text-gray-100">|</div>
-                </ul>
+                {!user ? (
+                  <ul className="flex gap-10 text-lg items-center text-[18px]">
+                    <Link to={"/login"}>
+                      <li className="hover:text-sky-500 transition delay-100 cursor-pointer">
+                        Sign in
+                      </li>
+                    </Link>
+                    <div className="text-gray-100">|</div>
+                    <Link to={"/register"}>
+                      <li className="hover:text-sky-500  transition delay-100 cursor-pointer">
+                        Create Account
+                      </li>
+                    </Link>
+                    <div className="text-gray-100">|</div>
+                  </ul>
+                ) : (
+                  <>
+                    <p>Welcome {user.name} !</p>
+                  </>
+                )}
               </div>
               <div className="flex items-center gap-5">
                 <SheetCard />

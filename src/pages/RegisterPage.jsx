@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuth from "@/hooks/useAuth";
 
 const defaultValues = { name: "", email: "", password: "", remember: true };
 
@@ -15,6 +16,8 @@ const schema = yup.object({
 });
 
 function RegisterPage() {
+  const auth = useAuth();
+
   const location = useLocation();
   const navigate = useNavigate();
   const {
@@ -27,12 +30,12 @@ function RegisterPage() {
     defaultValues,
   });
 
-  const onSubmit = (data) => {
-    const from = location.state?.from?.pathName || "/";
-    // const { emil, passwrod } = data;
-    console.log(data);
+  const onSubmit = async (data) => {
+    const { name, email, password } = data;
     try {
-      navigate(from);
+      await auth.register({ name, email, password }, () => {
+        navigate("/login");
+      });
     } catch (error) {
       setError("responseError", error);
     }
