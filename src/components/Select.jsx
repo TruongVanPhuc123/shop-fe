@@ -5,7 +5,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -25,7 +24,6 @@ export function SelectDemo({ name, array, setProductItem }) {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {/* <SelectLabel>Fruits</SelectLabel> */}
           {array?.map((element, index) => (
             <SelectItem key={index} value={element._id}>
               {`${element.size} - ${element.color}`}

@@ -3,16 +3,23 @@ import { SheetMenu } from "./Menu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
+import Typography from "./Typography";
+import { Dialog } from "./Dialog";
+import { Stack } from "@mui/material";
+import { CiLogout } from "react-icons/ci";
 
 function Navbar() {
   const auth = useAuth();
-  const user = auth.user;
+  const userName = auth?.user?.name;
+  const roles = auth?.user?.roles;
+  const { logout } = auth;
 
   const [logoClick, setLogoClick] = useState(false);
 
   const hanldeClick = () => {
     setLogoClick(!logoClick);
   };
+
   const logo = (
     <img
       width="48"
@@ -47,20 +54,27 @@ function Navbar() {
               {logo}
             </button>
             <div className="md:flex items-center gap-12 hidden font-bold min-w-fit flex-shrink">
-              <Link to={"/products"}>
-                <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
-                  Products
-                </span>
-              </Link>
               <Link to={"/"}>
                 <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
                   Home
                 </span>
               </Link>
+              <Link to={"/products"}>
+                <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
+                  Products
+                </span>
+              </Link>
+              {roles === "admin" && (
+                <Link to={"/dashboard"}>
+                  <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
+                    Dashboard
+                  </span>
+                </Link>
+              )}
             </div>
             <div className="lg:flex md:flex flex lg:flex-1 gap-10 items-center justify-end font-bold">
               <div className="flex-10 sm:block hidden min-w-fit flex-shrink">
-                {!user ? (
+                {!userName ? (
                   <ul className="flex gap-10 text-lg items-center text-[18px]">
                     <Link to={"/login"}>
                       <li className="hover:text-sky-500 transition delay-100 cursor-pointer">
@@ -76,9 +90,18 @@ function Navbar() {
                     <div className="text-gray-100">|</div>
                   </ul>
                 ) : (
-                  <>
-                    <p>Welcome {user.name} !</p>
-                  </>
+                  <Stack direction={"row"} alignItems={"center"} spacing={2}>
+                    <Typography>Welcome {userName} !</Typography>
+                    <Dialog
+                      trigger={<CiLogout className="text-2xl text-gray-500 " />}
+                      variant={"ghost"}
+                      title={"Do you want to logout?"}
+                      description={
+                        "This action cannot be undone. This will permanently delete your account and remove your data from our servers."
+                      }
+                      action={logout}
+                    />
+                  </Stack>
                 )}
               </div>
               <div className="flex items-center gap-5">

@@ -9,27 +9,41 @@ import {
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { ScrollArea } from "./ui/scroll-area";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { getCartItems } from "@/feautures/cart/CartSlice";
+import { useEffect } from "react";
+import {
+  deleteCartItem,
+  getCartItems,
+  updateCartItem,
+} from "@/feautures/cart/CartSlice";
 import { CardWithForm } from "./Card";
+import { Stack } from "@mui/material";
 
 export function SheetCard() {
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  const { count, data, totalPages } = cartItems;
-
+  const count = cartItems?.count;
+  const data = cartItems?.data;
+  const totalPages = cartItems?.totalPages;
   const defaultCount = 0;
 
-  console.log(cartItems);
+  const handleActions = (data) => {
+    const { type, id, body } = data;
+    console.log(data);
+    if (type === "DELETE") {
+      dispatch(deleteCartItem({ id }));
+    } else {
+      dispatch(updateCartItem({ id, body }));
+    }
+  };
 
   useEffect(() => {
     dispatch(getCartItems());
-  }, [data]);
+  }, [cartItems, dispatch]);
 
   return (
     <Sheet>
-      <SheetTrigger asChild className="group -m-2 flex items-center p-2">
+      <SheetTrigger asChild className="">
         <div className="flex gap-3 items-center text-2xl text-gray-500 hover:text-sky-500 transition cursor-pointer">
           <HiMiniShoppingCart />
           <span>{!count ? defaultCount : count}</span>
@@ -41,15 +55,16 @@ export function SheetCard() {
         </SheetHeader>
         {count > 0 ? (
           <ScrollArea>
-            {data?.map((elemnt) => (
-              <CardWithForm
-                className={
-                  "w-full h-[150px] hover:shadow-xl flex justify-around items-center "
-                }
-                imgStyles={"w-20 "}
-                data={elemnt}
-              />
-            ))}
+            <Stack spacing={3}>
+              {data?.map((elemnt, index) => (
+                <CardWithForm
+                  key={index}
+                  className={"w-full flex justify-around items-center p-5"}
+                  data={elemnt}
+                  handleActions={handleActions}
+                />
+              ))}
+            </Stack>
           </ScrollArea>
         ) : (
           <>

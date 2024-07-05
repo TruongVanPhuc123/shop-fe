@@ -7,11 +7,19 @@ import NotFoundPage from "../pages/NotFoundPage";
 import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import ProductsPage from "@/pages/ProductsPage";
+import AuthRequired from "./AuthRequired";
 
 function Router() {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
+      <Route
+        path="/"
+        element={
+          <AuthRequired>
+            <MainLayout />
+          </AuthRequired>
+        }
+      >
         <Route index element={<HomePage />} />
         <Route path="/detail/:id" element={<DetailPage />} />
         <Route path="/products" element={<ProductsPage />} />

@@ -16,7 +16,6 @@ export const getProducts = createAsyncThunk("getProducts", async () => {
 export const getProductDetail = createAsyncThunk(
   "getProductDetail",
   async ({ id }) => {
-    console.log(id);
     const response = await apiService.get(`/products/${id}`);
     return response.data;
   }

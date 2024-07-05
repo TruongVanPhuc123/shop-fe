@@ -1,7 +1,9 @@
 import { CardWithForm } from "@/components/Card";
+import LoadingScreen from "@/components/LoadingScreen";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getProducts } from "@/feautures/product/ProductSlice";
+import { Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +25,14 @@ function ProductsPage() {
   useEffect(() => {
     dispatch(getProducts());
   }, []);
+
+  if (!data) {
+    return (
+      <div className="h-[100vh]">
+        <LoadingScreen />
+      </div>
+    );
+  }
 
   return (
     <div className="my-28 flex flex-col justify-center items-center">

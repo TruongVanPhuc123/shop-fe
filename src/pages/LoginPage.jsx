@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AlertDestructive } from "@/components/Alert";
+import Typography from "@/components/Typography";
 
 const schema = yup.object({
   email: yup.string().email("Invalid email").required("Email required"),
@@ -17,7 +18,6 @@ const defaultValues = { email: "", password: "", remember: true };
 
 function LoginPage() {
   const auth = useAuth();
-  console.log(auth);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -53,9 +53,12 @@ function LoginPage() {
         alt=""
         className="w-20 animate-bounce"
       />
-      {!!errors.responseError && (
-        <AlertDestructive title={errors.responseError.message} />
-      )}
+      <Typography>
+        {" "}
+        {!!errors.responseError && (
+          <AlertDestructive title={errors.responseError.message} />
+        )}
+      </Typography>
       <p className="text-3xl font-bold">Login Page</p>
       <div className="md:w-[20%] w-[80%]">
         <form
@@ -71,9 +74,17 @@ function LoginPage() {
             </Link>
           </div>
           <Input placeholder="Email" {...register("email")} />
-          {errors && <p className="text-red-500">{errors.email?.message}</p>}
+          {errors && (
+            <Typography className="text-red-500">
+              {errors.email?.message}
+            </Typography>
+          )}
           <Input placeholder="Password" {...register("password")} />
-          {errors && <p className="text-red-500">{errors.password?.message}</p>}
+          {errors && (
+            <Typography className="text-red-500">
+              {errors.password?.message}
+            </Typography>
+          )}
 
           <Button type="submit">Login</Button>
         </form>
