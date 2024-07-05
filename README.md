@@ -4,5 +4,4 @@
 
 # Error
 
-1. using authContext from src/pages/LoginPage.jsx
-2. Error using map from src/components/Select.jsx
+1. EAuto useEffect SheetCard.jsx
