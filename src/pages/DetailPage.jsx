@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { createCartItems } from "@/feautures/cart/CartSlice";
+import { createAndResetCartItems } from "@/feautures/cart/CartSlice";
 import { useToast } from "@/components/ui/use-toast";
 
 const schema = yup.object({
@@ -25,7 +25,7 @@ function DetailPage() {
   const params = useParams();
   const id = params.id;
 
-  const { toast } = useToast();
+  // const { toast } = useToast();
 
   const dispatch = useDispatch();
   const { productDetail, productItems } = useSelector((state) => state.product);
@@ -45,7 +45,7 @@ function DetailPage() {
 
   const onSubmit = (value) => {
     const quantity = value.quantity;
-    dispatch(createCartItems({ body: { productItemId, quantity } }));
+    dispatch(createAndResetCartItems({ body: { productItemId, quantity } }));
   };
 
   const handlePrevQuantity = () => {

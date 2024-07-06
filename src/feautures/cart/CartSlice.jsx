@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cartItems: [],
-  status: "idie",
+  status: "success",
 };
 
 export const getCartItems = createAsyncThunk("getCartItems", async () => {
@@ -19,10 +19,11 @@ export const getCartItems = createAsyncThunk("getCartItems", async () => {
 //   }
 // );
 
-export const createCartItems = createAsyncThunk(
-  "createCartItems",
+export const createAndResetCartItems = createAsyncThunk(
+  "createAndResetCartItems",
   async ({ body }) => {
-    const response = await apiService.post(`/cartItems`, body);
+    await apiService.post(`/cartItems`, body);
+    const response = await apiService.get(`/cartItems`);
     return response.data;
   }
 );
@@ -52,20 +53,21 @@ export const CartSlice = createSlice({
         state.status = "pending";
       })
       .addCase(getCartItems.fulfilled, (state, action) => {
-        state.status = "idea";
+        state.status = "success";
         state.cartItems = action.payload;
       })
       .addCase(getCartItems.rejected, (state) => {
         state.status = "rejected";
       });
     builder
-      .addCase(createCartItems.pending, (state) => {
+      .addCase(createAndResetCartItems.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(createCartItems.fulfilled, (state) => {
-        state.status = "idea";
+      .addCase(createAndResetCartItems.fulfilled, (state, action) => {
+        state.status = "success";
+        state.cartItems = action.payload;
       })
-      .addCase(createCartItems.rejected, (state) => {
+      .addCase(createAndResetCartItems.rejected, (state) => {
         state.status = "rejected";
       });
     // builder
@@ -73,7 +75,7 @@ export const CartSlice = createSlice({
     //     state.status = "pending";
     //   })
     //   .addCase(getSingleCartItem.fulfilled, (state, action) => {
-    //     state.status = "idea";
+    //     state.status = "success";
     //     state.cartItems = action.payload;
     //   })
     //   .addCase(getSingleCartItem.rejected, (state) => {
@@ -84,7 +86,7 @@ export const CartSlice = createSlice({
         state.status = "pending";
       })
       .addCase(updateCartItem.fulfilled, (state, action) => {
-        state.status = "idea";
+        state.status = "success";
         state.cartItems = action.payload;
       })
       .addCase(updateCartItem.rejected, (state) => {
@@ -95,7 +97,7 @@ export const CartSlice = createSlice({
         state.status = "pending";
       })
       .addCase(deleteCartItem.fulfilled, (state, action) => {
-        state.status = "idea";
+        state.status = "success";
         console.log(action);
         state.cartItems = action.payload;
       })

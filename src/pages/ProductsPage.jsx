@@ -1,5 +1,6 @@
 import { CardWithForm } from "@/components/Card";
 import LoadingScreen from "@/components/LoadingScreen";
+import { SelectDemo } from "@/components/Select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getProducts } from "@/feautures/product/ProductSlice";
@@ -39,9 +40,9 @@ function ProductsPage() {
       <div className="w-[80%] flex flex-col gap-10">
         <div className=" w-full flex justify-between">
           <div className="flex gap-3">
-            {/* <SelectDemo name="Brands" array={brands} />
-            <SelectDemo name="Size" array={sizes} />
-            <SelectDemo name="Categories" array={categories} /> */}
+            <SelectDemo name="Brands" />
+            <SelectDemo name="Size" />
+            <SelectDemo name="Categories" />
           </div>
           <div className="w-[30%] flex gap-1 sticky ">
             <Input placeholder="Search ..." />

@@ -8,6 +8,7 @@ import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import ProductsPage from "@/pages/ProductsPage";
 import AuthRequired from "./AuthRequired";
+import DashBoardPage from "@/pages/dashboard/DashBoardPage";
 
 function Router() {
   return (
@@ -24,6 +25,7 @@ function Router() {
         <Route path="/detail/:id" element={<DetailPage />} />
         <Route path="/products" element={<ProductsPage />} />
       </Route>
+      <Route path="/dashboard" element={<DashBoardPage />} />
 
       <Route element={<BlankLayout />}>
         <Route path="/login" element={<LoginPage />} />
