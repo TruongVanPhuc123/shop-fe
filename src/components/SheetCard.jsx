@@ -29,7 +29,6 @@ export function SheetCard() {
 
   const handleActions = (data) => {
     const { type, id, body } = data;
-    console.log(data);
     if (type === "DELETE") {
       dispatch(deleteCartItem({ id }));
     } else {
@@ -39,7 +38,7 @@ export function SheetCard() {
 
   useEffect(() => {
     dispatch(getCartItems());
-  }, [cartItems, dispatch]);
+  }, [dispatch]);
 
   return (
     <Sheet>
@@ -51,7 +50,7 @@ export function SheetCard() {
       </SheetTrigger>
       <SheetContent className="flex w-full flex-col pr-6 sm:max-w-lg">
         <SheetHeader className="space-y-2.5 pr-6  pb-2 border-b-2">
-          <SheetTitle>Card ({!count ? defaultCount : count})</SheetTitle>
+          <SheetTitle>Cart ({!count ? defaultCount : count})</SheetTitle>
         </SheetHeader>
         {count > 0 ? (
           <ScrollArea>

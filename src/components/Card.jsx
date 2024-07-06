@@ -18,7 +18,7 @@ export function CardWithForm({
   description,
   className,
   button,
-  handleClick,
+  handleDetail,
   data,
   handleActions,
 }) {
@@ -127,7 +127,7 @@ export function CardWithForm({
         </Stack>
       )}
 
-      {button && <Button onClick={handleClick}>Detail</Button>}
+      {button && <Button onClick={handleDetail}>Detail</Button>}
     </Card>
   );
 }

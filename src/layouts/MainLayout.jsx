@@ -2,16 +2,17 @@ import { Toaster } from "@/components/ui/toaster";
 import MainFooter from "./MainFooter";
 import MainHeader from "./MainHeader";
 import { Outlet } from "react-router-dom";
+import { Box, Stack } from "@mui/material";
 
 function MainLayout() {
   return (
-    <div className="flex flex-col min-h-screen ">
+    <Stack className=" min-h-screen ">
       <MainHeader />
       <Toaster />
       <Outlet />
-      <div className="grow"></div>
+      <Box className="grow"></Box>
       <MainFooter />
-    </div>
+    </Stack>
   );
 }
 
