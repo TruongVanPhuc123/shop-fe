@@ -11,14 +11,6 @@ export const getCartItems = createAsyncThunk("getCartItems", async () => {
   return response.data;
 });
 
-// export const getSingleCartItem = createAsyncThunk(
-//   "getSingleCartItem",
-//   async ({ id }) => {
-//     const response = await apiService.get(`/cartItems/${id}`);
-//     return response.data;
-//   }
-// );
-
 export const createAndResetCartItems = createAsyncThunk(
   "createAndResetCartItems",
   async ({ body }) => {
@@ -31,7 +23,8 @@ export const createAndResetCartItems = createAsyncThunk(
 export const updateCartItem = createAsyncThunk(
   "updateCartItem",
   async ({ id, body }) => {
-    const response = await apiService.put(`/cartItems/${id}`, body);
+    await apiService.put(`/cartItems/${id}`, body);
+    const response = await apiService.get(`/cartItems`);
     return response.data;
   }
 );
@@ -39,7 +32,8 @@ export const updateCartItem = createAsyncThunk(
 export const deleteCartItem = createAsyncThunk(
   "deleteCartItem",
   async ({ id }) => {
-    const response = await apiService.delete(`/cartItems/${id}`);
+    await apiService.delete(`/cartItems/${id}`);
+    const response = await apiService.get(`/cartItems`);
     return response.data;
   }
 );
@@ -70,17 +64,6 @@ export const CartSlice = createSlice({
       .addCase(createAndResetCartItems.rejected, (state) => {
         state.status = "rejected";
       });
-    // builder
-    //   .addCase(getSingleCartItem.pending, (state) => {
-    //     state.status = "pending";
-    //   })
-    //   .addCase(getSingleCartItem.fulfilled, (state, action) => {
-    //     state.status = "success";
-    //     state.cartItems = action.payload;
-    //   })
-    //   .addCase(getSingleCartItem.rejected, (state) => {
-    //     state.status = "rejected";
-    //   });
     builder
       .addCase(updateCartItem.pending, (state) => {
         state.status = "pending";
@@ -98,7 +81,6 @@ export const CartSlice = createSlice({
       })
       .addCase(deleteCartItem.fulfilled, (state, action) => {
         state.status = "success";
-        console.log(action);
         state.cartItems = action.payload;
       })
       .addCase(deleteCartItem.rejected, (state) => {
