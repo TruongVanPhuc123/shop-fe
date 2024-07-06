@@ -5,7 +5,7 @@ const initialState = {
   products: [],
   productDetail: null,
   productItems: {},
-  status: "idie",
+  status: "success",
 };
 
 export const getProducts = createAsyncThunk("getProducts", async () => {
@@ -38,8 +38,7 @@ export const ProductSlice = createSlice({
         state.status = "pending";
       })
       .addCase(getProducts.fulfilled, (state, action) => {
-        state.status = "idea";
-        // console.log(action.payload);
+        state.status = "success";
         state.products = action.payload;
       })
       .addCase(getProducts.rejected, (state) => {
@@ -50,8 +49,7 @@ export const ProductSlice = createSlice({
         state.status = "pending";
       })
       .addCase(getProductDetail.fulfilled, (state, action) => {
-        state.status = "idea";
-        // console.log(action.payload);
+        state.status = "success";
         state.productDetail = action.payload;
       })
       .addCase(getProductDetail.rejected, (state) => {
@@ -62,8 +60,7 @@ export const ProductSlice = createSlice({
         state.status = "pending";
       })
       .addCase(getProductItems.fulfilled, (state, action) => {
-        state.status = "idea";
-        // console.log(action.payload);
+        state.status = "success";
         state.productItems = action.payload;
       })
       .addCase(getProductItems.rejected, (state) => {
