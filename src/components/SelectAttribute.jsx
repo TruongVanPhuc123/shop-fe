@@ -9,12 +9,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function SelectDemo({ name, array, setProductItem }) {
+export function SelectAttribute({ name, array, setProductItem }) {
   const handleOnValueChange = (id) => {
-    if (id) {
-      let newValue = array.find((value) => value._id === id);
-      setProductItem(newValue);
-    }
+    // if (id) {
+    //   let newValue = array.find((value) => value._id === id);
+    //   setProductItem(newValue);
+    // }
   };
 
   return (
@@ -24,11 +24,11 @@ export function SelectDemo({ name, array, setProductItem }) {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {array?.map((element, index) => (
+          {/* {array?.map((element, index) => (
             <SelectItem key={index} value={element._id}>
               {`${element.size} - ${element.color}`}
             </SelectItem>
-          ))}
+          ))} */}
         </SelectGroup>
       </SelectContent>
     </Select>
