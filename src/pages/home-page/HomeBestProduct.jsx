@@ -1,4 +1,4 @@
-import { CardWithForm } from "@/components/Card";
+import { CardProduct } from "@/components/CardProduct";
 
 function HomeBestProduct() {
   return (
@@ -6,7 +6,7 @@ function HomeBestProduct() {
       <div className="w-full h-[1000px] md:p-20 p-10">
         <div className="relative flex items-center justify-center w-full h-full">
           <div className="absolute top-0 md:left-40 left-0 z-10">
-            <CardWithForm
+            <CardProduct
               className="md:w-[350px] w-[150px]"
               src={
                 "../../public/body/DrawKit-onlineshopping-Illustration-14.png"
@@ -19,7 +19,7 @@ function HomeBestProduct() {
             />
           </div>
           <div className="absolute top-10 right-0 z-10">
-            <CardWithForm
+            <CardProduct
               className="md:w-[350px] w-[150px]"
               src={
                 "../../public/body/DrawKit-onlineshopping-Illustration-14.png"
@@ -32,7 +32,7 @@ function HomeBestProduct() {
             />
           </div>
           <div className="absolute top-[500px] left-0 z-10">
-            <CardWithForm
+            <CardProduct
               className="md:w-[350px] w-[150px]"
               src={
                 "../../public/body/DrawKit-onlineshopping-Illustration-14.png"
@@ -45,7 +45,7 @@ function HomeBestProduct() {
             />
           </div>
           <div className="absolute md:top-[500px] md:right-40 top-[400px] right-0 z-10">
-            <CardWithForm
+            <CardProduct
               className="md:w-[350px] w-[150px]"
               src={
                 "../../public/body/DrawKit-onlineshopping-Illustration-14.png"

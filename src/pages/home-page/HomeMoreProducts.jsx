@@ -1,4 +1,4 @@
-import { CardWithForm } from "@/components/Card";
+import { CardProduct } from "@/components/CardProduct";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -7,7 +7,7 @@ function HomeMoreProducts() {
     <section>
       <div className="w-full h-auto mt-10 flex flex-col items-center gap-10  p-10">
         <div className="grid grid-rows-2 2xl:grid-rows-1 grid-flow-col gap-4">
-          <CardWithForm
+          <CardProduct
             src={"../../public/body/Shiny Happy - Plants 3.png"}
             nameCard={"Clothes"}
             imgStyles={"w-[50%]"}
@@ -15,7 +15,7 @@ function HomeMoreProducts() {
               "At One Theory, our mission is to help you live purposefully,peacefully, and unapologetically one day at a time"
             }
           />
-          <CardWithForm
+          <CardProduct
             src={"../../public/body/DrawKit-onlineshopping-Illustration-14.png"}
             nameCard={"T-Shirt"}
             imgStyles={"w-[50%]"}
@@ -23,7 +23,7 @@ function HomeMoreProducts() {
               "At One Theory, our mission is to help you live purposefully,peacefully, and unapologetically one day at a time"
             }
           />
-          <CardWithForm
+          <CardProduct
             src={"../../public/body/Hyperspace - Outer Space.png"}
             nameCard={"Hoodie"}
             imgStyles={"w-[50%]"}
@@ -31,7 +31,7 @@ function HomeMoreProducts() {
               "At One Theory, our mission is to help you live purposefully,peacefully, and unapologetically one day at a time"
             }
           />
-          <CardWithForm
+          <CardProduct
             src={"../../public/body/Family Values - Shopping.png"}
             nameCard={"Short"}
             imgStyles={"w-[50%]"}

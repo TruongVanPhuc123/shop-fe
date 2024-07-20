@@ -11,10 +11,7 @@ function index() {
   const { products } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const data = products.data;
-
-  // const [page, setPage] = useState(1);
-  // const [limit, setLimit] = useState(50);
+  const data = products.products;
 
   const handleDetail = (id) => {
     navigate(`/detail/${id}`);
@@ -24,19 +21,17 @@ function index() {
     dispatch(getProducts());
   }, []);
 
-  if (!data) {
-    return (
-      <div className="h-[100vh]">
-        <LoadingScreen />
-      </div>
-    );
-  }
-
   return (
     <Stack justifyContent={"center"} alignItems={"center"} className="my-24">
       <Stack spacing={5} className="w-[80%]">
         <FilterProduct />
-        <Products data={data} handleDetail={handleDetail} />
+        {data ? (
+          <Products data={data} handleDetail={handleDetail} />
+        ) : (
+          <Stack className="w-full relative top-20">
+            <LoadingScreen />
+          </Stack>
+        )}
       </Stack>
     </Stack>
   );

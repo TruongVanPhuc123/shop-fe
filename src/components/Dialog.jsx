@@ -10,8 +10,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import Typography from "./Typography";
 
 export function Dialog({
   trigger,
@@ -19,12 +17,11 @@ export function Dialog({
   btnStyles,
   title,
   description,
-  quantity,
   action,
-  handleChange,
+  footer,
 }) {
   return (
-    <AlertDialog>
+    <AlertDialog className="w-[500px] ">
       <AlertDialogTrigger asChild>
         <Button variant={`${variant}`} className={`${btnStyles}`}>
           {trigger}
@@ -35,23 +32,14 @@ export function Dialog({
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>
             {description && description}
-            {quantity >= 0 && (
-              <Typography className={"flex items-center gap-3"}>
-                Quantity:
-                <Input
-                  className="w-full text-center"
-                  type="number"
-                  value={quantity}
-                  onChange={(e) => handleChange(e.target.value)}
-                />
-              </Typography>
-            )}
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>No</AlertDialogCancel>
-          <AlertDialogAction onClick={action}>Yes</AlertDialogAction>
-        </AlertDialogFooter>
+        {footer && (
+          <AlertDialogFooter>
+            <AlertDialogCancel>No</AlertDialogCancel>
+            <AlertDialogAction onClick={action}>Yes</AlertDialogAction>
+          </AlertDialogFooter>
+        )}
       </AlertDialogContent>
     </AlertDialog>
   );

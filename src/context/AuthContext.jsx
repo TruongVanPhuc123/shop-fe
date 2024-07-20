@@ -1,6 +1,7 @@
 import { createContext, useEffect, useReducer } from "react";
 import apiService from "@/app/apiService";
 import { isValidToken } from "../utils/jwt";
+import Swal from "sweetalert2";
 
 const initialState = {
   isInitialized: false,
@@ -29,12 +30,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        user: payload.data,
+        user: payload.user,
       };
     case REGISTER_SUCCESS:
       return {
         ...state,
-        user: payload.data,
+        user: payload.user,
       };
     case LOGOUT:
       return {
@@ -69,7 +70,7 @@ function AuthProvider({ children }) {
           setSession(accessToken);
 
           const response = await apiService.get("/users/me");
-          const { data } = response.data;
+          const { data } = response;
 
           dispatch({
             type: INITIALIZE,
@@ -102,19 +103,23 @@ function AuthProvider({ children }) {
 
   const login = async ({ email, password }, callback) => {
     const response = await apiService.post("/auth/login", { email, password });
-    const { data, accessToken } = response.data;
+    const { user, accessToken } = response.data;
 
     setSession(accessToken);
-    dispatch({ type: LOGIN_SUCCESS, payload: { data } });
+    dispatch({ type: LOGIN_SUCCESS, payload: { user } });
     callback();
+    Swal.fire({
+      text: `Welcome back ${user.name}!`,
+      icon: "success",
+    });
   };
 
   const register = async ({ name, email, password }, callback) => {
     const response = await apiService.post("/users", { name, email, password });
-    const { data, accessToken } = response.data;
+    const { user, accessToken } = response.data;
 
     setSession(accessToken);
-    dispatch({ type: REGISTER_SUCCESS, payload: { data } });
+    dispatch({ type: REGISTER_SUCCESS, payload: { user } });
     callback();
   };
 

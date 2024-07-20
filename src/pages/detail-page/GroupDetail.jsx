@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createAndResetCartItems } from "@/feautures/cart/CartSlice";
 import Typography from "@/components/Typography";
 import { Button } from "@/components/ui/button";
@@ -8,38 +9,42 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { SelectVariants } from "@/components/SelectVariants";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const schema = yup.object({
   quantity: yup.number(),
 });
 
-// let defaultValues = { quantity: 1, remember: true };
-
-function GroupDetail({ productDetail, productItems }) {
+function GroupDetail({ productDetail }) {
   const dispatch = useDispatch();
 
   const [productItem, setProductItem] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const [btnAddToCart, setBtnAddToCart] = useState(false);
 
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(schema),
     defaultValues: { quantity: quantity, remember: true },
   });
 
-  const dataProductDetail = productDetail?.data;
-  const dataProductItems = productItems.data;
+  const arrayProductVariants = productDetail?.productItemId;
 
-  const category = dataProductDetail?.category;
-  const brand = dataProductDetail?.brand;
-  const name = dataProductDetail?.name;
-  const description = dataProductDetail?.description;
+  const category = productDetail?.category;
+  const name = productDetail?.name;
+  const description = productDetail?.description;
   const price = productItem.price;
 
   const productItemId = productItem._id;
 
-  const onSubmit = (value) => {
-    const quantity = value.quantity;
-    dispatch(createAndResetCartItems({ body: { productItemId, quantity } }));
+  const onSubmit = () => {
+    setBtnAddToCart(true);
+
+    dispatch(
+      createAndResetCartItems({
+        body: { productItemId, quantity },
+        setBtnAddToCart,
+      })
+    );
   };
 
   const handlePrevQuantity = () => {
@@ -52,11 +57,10 @@ function GroupDetail({ productDetail, productItems }) {
   };
 
   return (
-    <Stack spacing={3} justifyContent={"space-between"}>
+    <Stack spacing={3} justifyContent={"start"} className="w-1/2 h-full ">
       <Typography>Home / Hoodie</Typography>
       <Typography className="text-3xl font-bold">{name}</Typography>
       <Stack direction={"row"} spacing={2}>
-        <Typography className="text-xl font-medium">Brand: {brand}</Typography>
         <Typography className="text-xl font-medium">
           Category: {category}
         </Typography>
@@ -67,11 +71,9 @@ function GroupDetail({ productDetail, productItems }) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3}>
           <Stack direction={"row"} spacing={2}>
-            {/* <SelectDemo name="Select Sizes" />
-            <SelectDemo name="Select Colors" /> */}
             <SelectVariants
               name="Variants"
-              array={dataProductItems}
+              array={arrayProductVariants}
               setProductItem={setProductItem}
             />
           </Stack>
@@ -79,13 +81,14 @@ function GroupDetail({ productDetail, productItems }) {
             direction={"row"}
             alignItems={"center"}
             justifyContent={"space-between"}
-            className="w-[40%]"
+            className="w-[30%]"
           >
             <Typography className={"font-medium"}>Quantity :</Typography>
             <Button
               onClick={handlePrevQuantity}
               variant="outline"
               className="w-5 h-6"
+              type="button"
             >
               -
             </Button>
@@ -94,15 +97,27 @@ function GroupDetail({ productDetail, productItems }) {
               onClick={handleNextQuantity}
               variant="outline"
               className="w-5 h-6"
+              type="button"
             >
               +
             </Button>
           </Stack>
           <Typography>{description}</Typography>
-          <Stack direction={"row"} spacing={2}>
-            <Button type="submit">Add to cart</Button>
-            <Button>Buy now</Button>
-          </Stack>
+          {!btnAddToCart ? (
+            <Stack direction={"row"} spacing={2}>
+              <Button type="submit">Add to cart</Button>
+              <Button type="button">Buy now</Button>
+            </Stack>
+          ) : (
+            <Button disabled className="w-[30%]">
+              <Stack direction={"row"} alignItems={"center"} spacing={2}>
+                <Typography className={"animate-spin"}>
+                  <AiOutlineLoading3Quarters />
+                </Typography>
+                <Typography>Please Waiting</Typography>
+              </Stack>
+            </Button>
+          )}
         </Stack>
       </form>
     </Stack>
