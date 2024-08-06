@@ -17,8 +17,8 @@ function MainHeader() {
 
   const logo = (
     <img
-      width="48"
-      height="48"
+      width="58px"
+      height="58px"
       src="../../public/nav/favicon.ico"
       alt="hippopotamus"
     />
@@ -28,9 +28,9 @@ function MainHeader() {
     <div
       className={` ${
         logoClick
-          ? `bg-white border-b-2 border-slate-100 rounded-full sticky top-2 left-0 z-30 w-[10%] transition-all duration-1000 ease-in-out mx-[10%] hover:shadow-2xl`
-          : `bg-white border-b-2 border-slate-100 rounded-full sticky top-2 z-30 m-auto md:w-[80%] transition-all duration-1000 ease-in-out hover:shadow-2xl`
-      } md:block hidden`}
+          ? `bg-white border-b-2 border-slate-100 rounded-full sticky top-2 left-0 z-30 w-[150px] transition-all duration-1000 ease-in-out mx-[10%] hover:shadow-2xl`
+          : `bg-white border-b-2 border-slate-100 rounded-full sticky top-2 z-30 m-auto w-[80%] transition-all duration-1000 ease-in-out hover:shadow-2xl`
+      }`}
     >
       {logoClick ? (
         <SelectClickTrue hanldeClick={hanldeClick} logo={logo} />

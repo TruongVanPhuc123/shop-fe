@@ -9,7 +9,7 @@ import { Stack } from "@mui/material";
 
 function index() {
   const { productDetail } = useSelector((state) => state.product);
-  const { message } = useSelector((state) => state.cart);
+  const { success } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const params = useParams();
@@ -17,7 +17,7 @@ function index() {
 
   useEffect(() => {
     dispatch(getProductDetail({ id }));
-  }, [dispatch]);
+  }, [dispatch, success]);
 
   return (
     <Stack
@@ -26,9 +26,9 @@ function index() {
       justifyContent={"center"}
       className="w-full my-10"
     >
-      <div className="w-[80%] h-auto xl:p-10 grid xl:flex xl:items-start gap-10">
+      <div className="w-[80%] h-auto xl:flex xl:items-start gap-10  ">
         <GroupImage productDetail={productDetail} />
-        <GroupDetail productDetail={productDetail} message={message} />
+        <GroupDetail productDetail={productDetail} />
       </div>
     </Stack>
   );

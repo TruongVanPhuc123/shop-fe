@@ -24,7 +24,7 @@ function HomeInstructAccount() {
             src={"../../public/body/DrawKit-onlineshopping-Illustration-14.png"}
             alt={""}
           >
-            <p className="text-2xl font-bold">One</p>
+            <p className="text-2xl font-bold">Two</p>
             <p className="text-pretty text-slate-500">
               Free worldwire shiping on all orders.Free worldwire shiping on all
               orders.Free worldwire shiping on all orders
@@ -36,7 +36,7 @@ function HomeInstructAccount() {
             src={"../../public/body/DrawKit-onlineshopping-Illustration-14.png"}
             alt={""}
           >
-            <p className="text-2xl font-bold">One</p>
+            <p className="text-2xl font-bold">Three</p>
             <p className="text-pretty text-slate-500">
               Free worldwire shiping on all orders.Free worldwire shiping on all
               orders.Free worldwire shiping on all orders

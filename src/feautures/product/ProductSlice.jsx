@@ -12,16 +12,22 @@ const initialState = {
   status: "success",
 };
 
-export const getProducts = createAsyncThunk("getProducts", async () => {
-  const response = await apiService.get(`/products`);
-  return response.data;
-});
+export const getProducts = createAsyncThunk(
+  "getProducts",
+  async ({ page, limit, search }) => {
+    console.log(search);
+    const response = await apiService.get(
+      `/products?search=${search}&page=${page}&limit=${limit}`
+    );
+    return response.data;
+  }
+);
 
 export const getProductDetail = createAsyncThunk(
   "getProductDetail",
   async ({ id }) => {
     const response = await apiService.get(`/products/${id}`);
-    return response.data;
+    return response;
   }
 );
 
@@ -103,16 +109,8 @@ export const deleteProduct = createAsyncThunk(
   }
 );
 
-// export const getProductVariants = createAsyncThunk(
-//   "getProductItems",
-//   async ({ id }) => {
-//     const response = await apiService.get(`/products/${id}/productItems`);
-//     return response.data;
-//   }
-// );
-
 export const createProductVariants = createAsyncThunk(
-  "createProduct",
+  "createProductVariants",
   async ({ body, setBtnCreateProductVariants, reset }) => {
     try {
       await apiService.post(`/productItems`, body).then(async (response) => {
@@ -148,7 +146,6 @@ export const updateProductVariants = createAsyncThunk(
           icon: "success",
         });
         reset();
-        ``;
         setBtnUpdateProductVariants(false);
       })
       .catch((error) => {
@@ -206,7 +203,8 @@ export const ProductSlice = createSlice({
       })
       .addCase(getProductDetail.fulfilled, (state, action) => {
         state.status = "success";
-        state.productDetail = action.payload;
+        state.productDetail = action.payload.data;
+        state.success = action.payload.success;
       })
       .addCase(getProductDetail.rejected, (state) => {
         state.status = "rejected";
@@ -246,17 +244,6 @@ export const ProductSlice = createSlice({
       .addCase(deleteProduct.rejected, (state) => {
         state.status = "rejected";
       });
-    // builder
-    //   .addCase(getProductVariants.pending, (state) => {
-    //     state.status = "pending";
-    //   })
-    //   .addCase(getProductVariants.fulfilled, (state, action) => {
-    //     state.status = "success";
-    //     state.productItems = action.payload;
-    //   })
-    //   .addCase(getProductVariants.rejected, (state) => {
-    //     state.status = "rejected";
-    //   });
     builder
       .addCase(updateProductVariants.pending, (state) => {
         state.status = "pending";

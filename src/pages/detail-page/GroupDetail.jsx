@@ -16,18 +16,18 @@ const schema = yup.object({
 });
 
 function GroupDetail({ productDetail }) {
-  const dispatch = useDispatch();
-
   const [productItem, setProductItem] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [btnAddToCart, setBtnAddToCart] = useState(false);
+
+  const dispatch = useDispatch();
 
   const { register, handleSubmit } = useForm({
     resolver: yupResolver(schema),
     defaultValues: { quantity: quantity, remember: true },
   });
 
-  const arrayProductVariants = productDetail?.productItemId;
+  const arrayProductVariants = productDetail?.productItems;
 
   const category = productDetail?.category;
   const name = productDetail?.name;
@@ -57,8 +57,7 @@ function GroupDetail({ productDetail }) {
   };
 
   return (
-    <Stack spacing={3} justifyContent={"start"} className="w-1/2 h-full ">
-      <Typography>Home / Hoodie</Typography>
+    <Stack spacing={3} justifyContent={"start"} className="w-full h-full ">
       <Typography className="text-3xl font-bold">{name}</Typography>
       <Stack direction={"row"} spacing={2}>
         <Typography className="text-xl font-medium">
@@ -80,27 +79,34 @@ function GroupDetail({ productDetail }) {
           <Stack
             direction={"row"}
             alignItems={"center"}
-            justifyContent={"space-between"}
-            className="w-[30%]"
+            className="w-[100%]"
+            spacing={1}
           >
             <Typography className={"font-medium"}>Quantity :</Typography>
-            <Button
-              onClick={handlePrevQuantity}
-              variant="outline"
-              className="w-5 h-6"
-              type="button"
+            <Stack
+              direction={"row"}
+              alignItems={"center"}
+              width={"30%"}
+              spacing={2}
             >
-              -
-            </Button>
-            <Typography {...register("quantity")}>{quantity}</Typography>
-            <Button
-              onClick={handleNextQuantity}
-              variant="outline"
-              className="w-5 h-6"
-              type="button"
-            >
-              +
-            </Button>
+              <Button
+                onClick={handlePrevQuantity}
+                variant="outline"
+                className="w-5 h-6"
+                type="button"
+              >
+                -
+              </Button>
+              <Typography {...register("quantity")}>{quantity}</Typography>
+              <Button
+                onClick={handleNextQuantity}
+                variant="outline"
+                className="w-5 h-6"
+                type="button"
+              >
+                +
+              </Button>
+            </Stack>
           </Stack>
           <Typography>{description}</Typography>
           {!btnAddToCart ? (

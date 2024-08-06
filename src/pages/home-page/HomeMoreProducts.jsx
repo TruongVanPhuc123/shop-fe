@@ -8,6 +8,7 @@ function HomeMoreProducts() {
       <div className="w-full h-auto mt-10 flex flex-col items-center gap-10  p-10">
         <div className="grid grid-rows-2 2xl:grid-rows-1 grid-flow-col gap-4">
           <CardProduct
+            className={"flex flex-col items-center justify-between"}
             src={"../../public/body/Shiny Happy - Plants 3.png"}
             nameCard={"Clothes"}
             imgStyles={"w-[50%]"}
@@ -16,6 +17,7 @@ function HomeMoreProducts() {
             }
           />
           <CardProduct
+            className={"flex flex-col items-center justify-between"}
             src={"../../public/body/DrawKit-onlineshopping-Illustration-14.png"}
             nameCard={"T-Shirt"}
             imgStyles={"w-[50%]"}
@@ -24,6 +26,7 @@ function HomeMoreProducts() {
             }
           />
           <CardProduct
+            className={"flex flex-col items-center justify-between"}
             src={"../../public/body/Hyperspace - Outer Space.png"}
             nameCard={"Hoodie"}
             imgStyles={"w-[50%]"}
@@ -32,6 +35,7 @@ function HomeMoreProducts() {
             }
           />
           <CardProduct
+            className={"flex flex-col items-center justify-between"}
             src={"../../public/body/Family Values - Shopping.png"}
             nameCard={"Short"}
             imgStyles={"w-[50%]"}

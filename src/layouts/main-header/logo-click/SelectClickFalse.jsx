@@ -11,24 +11,26 @@ export default function SelectClickFalse({
 }) {
   return (
     <div className="px-5 py-2">
-      <div className="flex items-center gap:14 sm:gap-14 flex-1 min-w-fit flex-shrink">
-        <button className="w-12 h-12 cursor-pointer" onClick={hanldeClick}>
-          {logo}
-        </button>
-        <div className="md:flex items-center gap-12 hidden font-bold min-w-fit flex-shrink">
-          <Link to={"/"}>
-            <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
-              Home
-            </span>
-          </Link>
-          <Link to={"/products"}>
-            <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
-              Products
-            </span>
-          </Link>
+      <div className="flex justify-between">
+        <div className="flex md:gap-10 gap-2">
+          <button className="w-12 h-12 cursor-pointer" onClick={hanldeClick}>
+            {logo}
+          </button>
+          <div className="flex items-center md:gap-12 gap-2 font-bold min-w-fit flex-shrink">
+            <Link to={"/"}>
+              <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
+                Home
+              </span>
+            </Link>
+            <Link to={"/products"}>
+              <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
+                Products
+              </span>
+            </Link>
+          </div>
         </div>
-        <div className="lg:flex md:flex flex lg:flex-1 gap-10 items-center justify-end font-bold">
-          <div className="flex-10 sm:block hidden min-w-fit flex-shrink">
+        <div className="lg:flex md:flex flex lg:flex-1 gap-10 items-center justify-end font-bold w-[50%]">
+          <div className="flex-10 min-w-fit flex-shrink">
             {!userName ? (
               <ul className="flex gap-10 text-lg items-center text-[18px]">
                 <Link to={"/login"}>

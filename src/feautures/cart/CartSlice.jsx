@@ -41,8 +41,25 @@ export const createAndResetCartItems = createAsyncThunk(
 
 export const updateCartItem = createAsyncThunk(
   "updateCartItem",
-  async ({ id, body }) => {
-    await apiService.put(`/cartItems/${id}`, body);
+  async ({ id, body, action }) => {
+    await apiService
+      .put(`/cartItems/${id}`, body)
+      .then((response) => {
+        Swal.fire({
+          title: "Update item success !",
+          text: response.message,
+          icon: "success",
+        });
+        action(false);
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Update item success !",
+          text: err.message,
+          icon: "error",
+        });
+        action(false);
+      });
     const response = await apiService.get(`/cartItems`);
     return response;
   }
@@ -58,7 +75,6 @@ export const deleteCartItem = createAsyncThunk(
           title: "Remove item success !",
           icon: "success",
         });
-        console.log(res);
       })
       .catch((err) => {
         Swal.fire({

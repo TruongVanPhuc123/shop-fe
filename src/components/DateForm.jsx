@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/popover";
 
 export function DateForm() {
-  const [date, setDate] = React.useState();
+  const [date, setDate] = React.useState(Date());
 
   return (
     <Popover>

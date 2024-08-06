@@ -2,7 +2,7 @@ import { Box, Stack } from "@mui/material";
 
 function GroupImage({ productDetail }) {
   return (
-    <Stack className="w-1/2" alignItems={"center"}>
+    <Stack className="w-full" alignItems={"center"}>
       <Box>
         <img src={`${productDetail?.image}`} alt="" />
       </Box>

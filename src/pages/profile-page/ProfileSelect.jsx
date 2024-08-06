@@ -42,78 +42,61 @@ export default function ProfileSelect() {
   }, [dispatch, success]);
 
   return (
-    <div>
+    <div className="flex-col w-full">
       <Stack
         direction={"row"}
         alignItems={"center"}
         spacing={3}
-        className="p-5"
+        className="p-5 w-full"
       >
         <Avatar>
           <AvatarImage src={`${avatarUrl}`} />
           <AvatarFallback>{name?.slice(0, 2)}</AvatarFallback>
         </Avatar>
-        <Stack>
+        <div className="md:flex-col flex items-center gap-3">
           <Typography> {name}</Typography>
           <Typography className={"text-sm"}>Account / Log out</Typography>
-        </Stack>
+        </div>
       </Stack>
-      <Link to={"/profile"}>
-        <Box className="p-5 hover:bg-slate-200 cursor-pointer">
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            spacing={2}
-            width={"100%"}
-          >
-            <ImProfile />
-            <Typography>Profile</Typography>
-          </Stack>
-        </Box>
-      </Link>
-      <Divider />
-      {roles === "admin" && (
-        <>
-          <Link to={"/profile/dash-board"}>
-            <Box className="p-5 hover:bg-slate-200 cursor-pointer">
-              <Stack
-                direction={"row"}
-                alignItems={"center"}
-                spacing={2}
-                width={"100%"}
-              >
-                <MdDashboard />
-                <Typography>Dash board</Typography>
-              </Stack>
-            </Box>
-          </Link>
-          <Divider />
-        </>
-      )}
-      <Link to={"/profile/order"}>
-        <Box className="p-5 hover:bg-slate-200 cursor-pointer">
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            spacing={2}
-            width={"100%"}
-          >
-            <FaCartArrowDown />
-            <Typography>Order</Typography>
-          </Stack>
-        </Box>
-      </Link>
-      <Divider />
-      <button
-        onClick={handleLogout}
-        className="w-full p-5 hover:bg-slate-200 cursor-pointer"
-      >
-        <Stack direction={"row"} alignItems={"center"} spacing={2}>
-          <CiLogout />
-          <Typography>Log out</Typography>
-        </Stack>
-      </button>
-      <Divider />
+      <div className="flex md:flex-col items-center justify-between md:items-start w-full">
+        <Link to={"/profile"} className=" w-full">
+          <Box className="p-5 hover:bg-slate-200 cursor-pointer">
+            <div className="md:flex items-center gap-3">
+              <ImProfile />
+              <Typography>Profile</Typography>
+            </div>
+          </Box>
+        </Link>
+        {roles === "admin" && (
+          <>
+            <Link to={"/profile/dash-board"} className=" w-full">
+              <Box className="p-5 hover:bg-slate-200 cursor-pointer">
+                <div className="md:flex items-center gap-3 w-full">
+                  <MdDashboard />
+                  <Typography>Dash board</Typography>
+                </div>
+              </Box>
+            </Link>
+          </>
+        )}
+        <Link to={"/profile/order-profile"} className=" w-full">
+          <Box className="p-5 hover:bg-slate-200 cursor-pointer">
+            <div className="md:flex items-center gap-3 w-full">
+              <FaCartArrowDown />
+              <Typography>Order</Typography>
+            </div>
+          </Box>
+        </Link>
+        <button
+          onClick={handleLogout}
+          className="w-full p-5 hover:bg-slate-200 cursor-pointer"
+        >
+          <div className="md:flex items-center gap-3">
+            <CiLogout />
+            <Typography>Log out</Typography>
+          </div>
+        </button>
+      </div>
     </div>
   );
 }

@@ -29,6 +29,9 @@ export default function Product() {
   const [dataCreateProductVariant, setdataCreateProductVariant] = useState({});
   const [productItem, setProductItem] = useState({});
   const [value, setValue] = useState("");
+  const [search, setSearch] = useState("All");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
 
   const handleBtnValue = (body) => {
     const { value, data, type } = body;
@@ -54,6 +57,7 @@ export default function Product() {
           data={data}
           handleBtnValue={handleBtnValue}
           setProductItem={setProductItem}
+          productItem={productItem}
         />
       ),
     },
@@ -84,8 +88,8 @@ export default function Product() {
   ];
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch, success]);
+    dispatch(getProducts({ page, limit, search }));
+  }, [dispatch, success, page, limit, search]);
 
   return (
     <Accordion type="single" collapsible value={value} onValueChange={setValue}>

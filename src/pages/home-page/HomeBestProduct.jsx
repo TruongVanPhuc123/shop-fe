@@ -7,7 +7,7 @@ function HomeBestProduct() {
         <div className="relative flex items-center justify-center w-full h-full">
           <div className="absolute top-0 md:left-40 left-0 z-10">
             <CardProduct
-              className="md:w-[350px] w-[150px]"
+              className="md:w-[350px] w-[150px] flex flex-col items-center gap-3"
               src={
                 "../../public/body/DrawKit-onlineshopping-Illustration-14.png"
               }
@@ -20,7 +20,7 @@ function HomeBestProduct() {
           </div>
           <div className="absolute top-10 right-0 z-10">
             <CardProduct
-              className="md:w-[350px] w-[150px]"
+              className="md:w-[350px] w-[150px] flex flex-col items-center gap-3"
               src={
                 "../../public/body/DrawKit-onlineshopping-Illustration-14.png"
               }
@@ -33,7 +33,7 @@ function HomeBestProduct() {
           </div>
           <div className="absolute top-[500px] left-0 z-10">
             <CardProduct
-              className="md:w-[350px] w-[150px]"
+              className="md:w-[350px] w-[150px] flex flex-col items-center gap-3"
               src={
                 "../../public/body/DrawKit-onlineshopping-Illustration-14.png"
               }
@@ -46,7 +46,7 @@ function HomeBestProduct() {
           </div>
           <div className="absolute md:top-[500px] md:right-40 top-[400px] right-0 z-10">
             <CardProduct
-              className="md:w-[350px] w-[150px]"
+              className="md:w-[350px] w-[150px] flex flex-col items-center gap-3"
               src={
                 "../../public/body/DrawKit-onlineshopping-Illustration-14.png"
               }

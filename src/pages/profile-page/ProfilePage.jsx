@@ -2,7 +2,6 @@ import MainHeader from "@/layouts/main-header/MainHeader";
 import { Box, Stack } from "@mui/material";
 import Typography from "@/components/Typography";
 import ProfileSelect from "./ProfileSelect";
-import Profile from "./outlet-select/profile/Profile";
 import { Outlet } from "react-router-dom";
 
 export default function ProfilePage() {
@@ -18,14 +17,14 @@ export default function ProfilePage() {
               timezone.
             </Typography>
           </Stack>
-          <Stack direction={"row"} spacing={5}>
-            <Stack width={"20%"}>
+          <div className="md:flex gap-10 w-full">
+            <div className="md:w-[20%]">
               <ProfileSelect />
-            </Stack>
-            <Stack width={"80%"}>
+            </div>
+            <div className="w-full">
               <Outlet />
-            </Stack>
-          </Stack>
+            </div>
+          </div>
         </Stack>
       </Box>
     </div>
