@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiService = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://shop-be-w5j2.onrender.com/api",
 });
 
 apiService.interceptors.request.use(
