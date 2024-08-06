@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AlertDestructive } from "@/components/Alert";
 import Typography from "@/components/Typography";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Box, Stack } from "@mui/material";
 
 const schema = yup.object({
   email: yup.string().email("Invalid email").required("Email required"),
@@ -25,7 +27,7 @@ function LoginPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setError,
   } = useForm({
     resolver: yupResolver(schema),
@@ -35,61 +37,84 @@ function LoginPage() {
   const onSubmit = async (data) => {
     const from = location.state?.from?.pathName || "/";
     const { email, password } = data;
-    // console.log(data);
     try {
       await auth.login({ email, password }, () => {
         navigate(from);
       });
     } catch (error) {
       setError("responseError", error);
-      console.log(error.message);
     }
   };
 
   return (
-    <div className="flex flex-col justify-center gap-5 items-center h-[100vh] ">
-      <img
-        src="../../public/nav/favicon.ico"
-        alt=""
-        className="w-20 animate-bounce"
-      />
-      <Typography>
-        {" "}
-        {!!errors.responseError && (
-          <AlertDestructive title={errors.responseError.message} />
-        )}
-      </Typography>
-      <p className="text-3xl font-bold">Login Page</p>
-      <div className="md:w-[20%] w-[80%]">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-2"
-        >
-          <div className="text-right">
-            <Link
-              to={"/register"}
-              className="hover:border-b-2 hover:border-blue-500 text-blue-500"
-            >
-              You haven`t a account?
-            </Link>
-          </div>
-          <Input placeholder="Email" {...register("email")} />
-          {errors && (
-            <Typography className="text-red-500">
-              {errors.email?.message}
-            </Typography>
+    <Stack
+      justifyContent={"center"}
+      alignItems={"center"}
+      className=" h-[100vh] "
+    >
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        spacing={3}
+        className="xl:w-[22%] w-[80%]"
+      >
+        <Box>
+          {" "}
+          <img
+            src="../../public/nav/favicon.ico"
+            alt=""
+            className="w-20 animate-bounce"
+          />
+        </Box>
+        <Typography className={"w-full"}>
+          {" "}
+          {!!errors.responseError && (
+            <AlertDestructive title={errors.responseError.message} />
           )}
-          <Input placeholder="Password" {...register("password")} />
-          {errors && (
-            <Typography className="text-red-500">
-              {errors.password?.message}
-            </Typography>
-          )}
+        </Typography>
+        <p className="text-3xl font-bold">Login Page</p>
+        <div className="w-full">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col space-y-2"
+          >
+            <div className="text-right">
+              <Link
+                to={"/register"}
+                className="hover:border-b-2 hover:border-blue-500 text-blue-500"
+              >
+                You haven`t a account?
+              </Link>
+            </div>
+            <Input placeholder="Email" {...register("email")} />
+            {errors && (
+              <Typography className="text-red-500">
+                {errors.email?.message}
+              </Typography>
+            )}
+            <Input placeholder="Password" {...register("password")} />
+            {errors && (
+              <Typography className="text-red-500">
+                {errors.password?.message}
+              </Typography>
+            )}
 
-          <Button type="submit">Login</Button>
-        </form>
-      </div>
-    </div>
+            {!isSubmitting ? (
+              <Button type="submit">Login</Button>
+            ) : (
+              <Button disabled>
+                <Stack direction={"row"} alignItems={"center"} spacing={2}>
+                  <Typography className={"animate-spin"}>
+                    <AiOutlineLoading3Quarters />
+                  </Typography>
+                  <Typography>Please Waiting</Typography>
+                </Stack>
+              </Button>
+            )}
+          </form>
+        </div>
+      </Stack>
+    </Stack>
   );
 }
 

@@ -1,34 +1,11 @@
 import { Box, Stack } from "@mui/material";
 
-function GroupImage() {
+function GroupImage({ productDetail }) {
   return (
-    <Stack spacing={3} alignItems={"center"} justifyContent={"center"}>
+    <Stack className="w-full" alignItems={"center"}>
       <Box>
-        <img src="../../public/body/Bill.png" alt="" />
+        <img src={`${productDetail?.image}`} alt="" />
       </Box>
-      {/* show image with Array methods map */}
-      <Stack direction={"row"} spacing={2}>
-        <img
-          className="xl:w-[20%] size-32"
-          src="../../public/body/Bill.png"
-          alt=""
-        />
-        <img
-          className="xl:w-[20%] size-32"
-          src="../../public/body/Bill.png"
-          alt=""
-        />
-        <img
-          className="xl:w-[20%] size-32"
-          src="../../public/body/Bill.png"
-          alt=""
-        />
-        <img
-          className="xl:w-[20%] size-32"
-          src="../../public/body/Bill.png"
-          alt=""
-        />
-      </Stack>
     </Stack>
   );
 }

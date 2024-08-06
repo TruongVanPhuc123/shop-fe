@@ -1,8 +1,11 @@
 import apiService from "@/app/apiService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 
 const initialState = {
   cartItems: [],
+  message: "",
+  success: false,
   status: "success",
 };
 
@@ -13,28 +16,75 @@ export const getCartItems = createAsyncThunk("getCartItems", async () => {
 
 export const createAndResetCartItems = createAsyncThunk(
   "createAndResetCartItems",
-  async ({ body }) => {
-    await apiService.post(`/cartItems`, body);
+  async ({ body, setBtnAddToCart }) => {
+    await apiService
+      .post(`/cartItems`, body)
+      .then((res) => {
+        Swal.fire({
+          title: res.message,
+          icon: "success",
+        });
+        setBtnAddToCart(false);
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Failed to add to cart !",
+          text: "Error: " + err.message,
+          icon: "error",
+        });
+        setBtnAddToCart(false);
+      });
     const response = await apiService.get(`/cartItems`);
-    return response.data;
+    return response;
   }
 );
 
 export const updateCartItem = createAsyncThunk(
   "updateCartItem",
-  async ({ id, body }) => {
-    await apiService.put(`/cartItems/${id}`, body);
+  async ({ id, body, action }) => {
+    await apiService
+      .put(`/cartItems/${id}`, body)
+      .then((response) => {
+        Swal.fire({
+          title: "Update item success !",
+          text: response.message,
+          icon: "success",
+        });
+        action(false);
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Update item success !",
+          text: err.message,
+          icon: "error",
+        });
+        action(false);
+      });
     const response = await apiService.get(`/cartItems`);
-    return response.data;
+    return response;
   }
 );
 
 export const deleteCartItem = createAsyncThunk(
   "deleteCartItem",
   async ({ id }) => {
-    await apiService.delete(`/cartItems/${id}`);
+    await apiService
+      .delete(`/cartItems/${id}`)
+      .then((res) => {
+        Swal.fire({
+          title: "Remove item success !",
+          icon: "success",
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          title: "Failed to add to cart !",
+          text: "Error: " + err.message,
+          icon: "error",
+        });
+      });
     const response = await apiService.get(`/cartItems`);
-    return response.data;
+    return response;
   }
 );
 
@@ -49,6 +99,7 @@ export const CartSlice = createSlice({
       .addCase(getCartItems.fulfilled, (state, action) => {
         state.status = "success";
         state.cartItems = action.payload;
+        state.success = action.payload.success;
       })
       .addCase(getCartItems.rejected, (state) => {
         state.status = "rejected";
@@ -59,10 +110,12 @@ export const CartSlice = createSlice({
       })
       .addCase(createAndResetCartItems.fulfilled, (state, action) => {
         state.status = "success";
-        state.cartItems = action.payload;
+        state.cartItems = action.payload.data;
+        state.success = action.payload.success;
       })
-      .addCase(createAndResetCartItems.rejected, (state) => {
+      .addCase(createAndResetCartItems.rejected, (action, state) => {
         state.status = "rejected";
+        state.message = action.payload.message;
       });
     builder
       .addCase(updateCartItem.pending, (state) => {
@@ -70,10 +123,12 @@ export const CartSlice = createSlice({
       })
       .addCase(updateCartItem.fulfilled, (state, action) => {
         state.status = "success";
-        state.cartItems = action.payload;
+        state.cartItems = action.payload.data;
+        state.success = action.payload.success;
       })
-      .addCase(updateCartItem.rejected, (state) => {
+      .addCase(updateCartItem.rejected, (state, action) => {
         state.status = "rejected";
+        state.message = action.payload.message;
       });
     builder
       .addCase(deleteCartItem.pending, (state) => {
@@ -81,10 +136,12 @@ export const CartSlice = createSlice({
       })
       .addCase(deleteCartItem.fulfilled, (state, action) => {
         state.status = "success";
-        state.cartItems = action.payload;
+        state.cartItems = action.payload.data;
+        state.success = action.payload.success;
       })
-      .addCase(deleteCartItem.rejected, (state) => {
+      .addCase(deleteCartItem.rejected, (state, action) => {
         state.status = "rejected";
+        state.message = action.payload.message;
       });
   },
 });
