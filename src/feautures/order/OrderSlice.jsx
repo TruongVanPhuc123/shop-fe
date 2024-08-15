@@ -10,6 +10,50 @@ const initialState = {
   status: "success",
 };
 
+let isFetching = false;
+
+const checKPayment = async (price, id, navigate) => {
+  if (isFetching) {
+    return;
+  } else {
+    try {
+      const res = await axios.get(
+        `https://script.google.com/macros/s/AKfycbyRZOwsXHgZrwz-B7xVJaDVQbPEpXv5Equ6rdlB-gJi0RV0bkoHM86ODOl-ljbrmH6e/exec`
+      );
+      const data = res.data;
+      const lastData = data.data[data.data.length - 1];
+      const lastPrice = lastData["Giá trị"];
+      const lastContent = lastData["Mô tả"];
+
+      if (lastPrice >= price && lastContent.includes(id)) {
+        isFetching = true;
+        //update order status
+        const body = {};
+        body.status = "accepted";
+        await apiService.put(`/orders/${id}`, body);
+
+        //delete carItems after status is a accepted
+        // await apiService.delete(`/cartItems/${id}`);
+
+        navigate("/");
+        Swal.fire({
+          title: "Success Payment",
+          text: "Thank you for your order",
+          icon: "success",
+        });
+      } else {
+        console.log("Order faild");
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error Payment",
+        text: error.message,
+        icon: "error",
+      });
+    }
+  }
+};
+
 export const getOrders = createAsyncThunk("getOrders", async () => {
   const response = await apiService.get(`/orders`);
   return response.data;
@@ -27,19 +71,14 @@ export const getOrdersByCurrentUserId = createAsyncThunk(
 
 export const createOrder = createAsyncThunk(
   "createOrder",
-  async ({ body, navigate, setBtnOrder }) => {
+  async ({ body, navigate }) => {
     try {
       const response = await apiService.post(`/orders`, body);
-
-      //delete carItems after status is a accepted
-      // await apiService.delete(`/cartItems/${id}`);
-      navigate("/");
-
-      Swal.fire({
-        title: "Success Payment",
-        text: "Thanks for your order",
-        icon: "success",
-      });
+      setTimeout(() => {
+        setInterval(() => {
+          checKPayment(body.totalPrices, response.data._id, navigate);
+        }, 1000);
+      }, 5000);
       return response.data;
     } catch (error) {
       Swal.fire({
@@ -47,7 +86,6 @@ export const createOrder = createAsyncThunk(
         text: error.message,
         icon: "error",
       });
-      setBtnOrder(false);
     }
   }
 );
