@@ -1,6 +1,5 @@
 import apiService from "@/app/apiService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import Swal from "sweetalert2";
 
 const initialState = {
@@ -108,9 +107,9 @@ export const OrderSlice = createSlice({
       .addCase(createOrder.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(createOrder.fulfilled, (state, action) => {
+      .addCase(createOrder.fulfilled, (state) => {
         state.status = "success";
-        state.orderIdCreated = action.payload._id;
+        state.success = true;
       })
       .addCase(createOrder.rejected, (state) => {
         state.status = "rejected";
