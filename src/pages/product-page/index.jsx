@@ -44,7 +44,7 @@ function index() {
   return (
     <Stack justifyContent={"center"} alignItems={"center"} className="my-24">
       <Stack spacing={5} className="w-[80%]">
-        <FilterProduct onSubmit={onSubmit} />
+        <FilterProduct onSubmit={onSubmit} data={data} />
         {data ? (
           <Products
             data={data}

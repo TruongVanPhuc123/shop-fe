@@ -7,8 +7,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { SelectVariants } from "@/components/SelectVariants";
-import { SelectAction } from "@/components/SelectAction";
+import { SelectVariants } from "@/components/select/SelectVariants";
+import { SelectAction } from "@/components/select/SelectAction";
 
 export default function ListProductForm({
   data,

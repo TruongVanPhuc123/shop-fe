@@ -9,9 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { Divider, Stack } from "@mui/material";
-import Typography from "./Typography";
+import Typography from "../Typography";
 
 import { MdDelete } from "react-icons/md";
 import { AiFillTool } from "react-icons/ai";

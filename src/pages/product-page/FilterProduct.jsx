@@ -1,4 +1,4 @@
-import { SelectAttribute } from "@/components/SelectAttribute";
+import { SelectAttribute } from "@/components/select/SelectAttribute";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Stack } from "@mui/material";
@@ -14,7 +14,7 @@ const schema = yup.object({
 
 const defaultValues = { search: "" };
 
-function FilterProduct({ onSubmit }) {
+function FilterProduct({ onSubmit, data }) {
   const {
     register,
     handleSubmit,
@@ -23,18 +23,23 @@ function FilterProduct({ onSubmit }) {
     resolver: yupResolver(schema),
     defaultValues,
   });
+    
+  const categories = data?.map(product => product.category);
+  const brands = data?.map(product => product.brand);
+  const sizes = ["XS", "XL", "L","M"];
+
   return (
-    <div className="w-full lg:flex lg:justify-between gap-10">
-      <Stack direction={"row"} spacing={2}>
+    <div className="w-full lg:flex justify-between gap-10">
+      <div className="mb-5 flex gap-2 justify-between ">
         <SelectAttribute name="Brands" />
         <SelectAttribute name="Size" />
         <SelectAttribute name="Categories" />
-      </Stack>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack
           direction={"row"}
           spacing={1}
-          className="md:w-[80%] sticky top-0 right-0"
+          className="w-full sticky top-0 right-0"
         >
           <Input placeholder="Search..." {...register("search")} />
           {errors && (

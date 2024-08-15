@@ -97,10 +97,9 @@ export const createOrder = createAsyncThunk(
 
 export const deleteOrder = createAsyncThunk(
   "deleteOrder",
-  async ({ orderId, orderItemsId, setBtnDeleteOrder }) => {
-    console.log({ orderItemsId });
+  async ({ orderId, setBtnDeleteOrder }) => {
     await apiService
-      .delete(`/orders/${orderId}`, { orderItemsId })
+      .delete(`/orders/${orderId}`)
       .then(() => {
         Swal.fire({
           title: "Delete Order",

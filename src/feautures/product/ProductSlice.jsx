@@ -15,7 +15,6 @@ const initialState = {
 export const getProducts = createAsyncThunk(
   "getProducts",
   async ({ page, limit, search }) => {
-    console.log(search);
     const response = await apiService.get(
       `/products?search=${search}&page=${page}&limit=${limit}`
     );
@@ -193,6 +192,7 @@ export const ProductSlice = createSlice({
       .addCase(getProducts.fulfilled, (state, action) => {
         state.status = "success";
         state.products = action.payload;
+        state.success = true;
       })
       .addCase(getProducts.rejected, (state) => {
         state.status = "rejected";
@@ -242,6 +242,17 @@ export const ProductSlice = createSlice({
         state.success = true;
       })
       .addCase(deleteProduct.rejected, (state) => {
+        state.status = "rejected";
+      });
+    builder
+      .addCase(createProductVariants.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(createProductVariants.fulfilled, (state, action) => {
+        state.status = "success";
+        state.success = true;
+      })
+      .addCase(createProductVariants.rejected, (state) => {
         state.status = "rejected";
       });
     builder

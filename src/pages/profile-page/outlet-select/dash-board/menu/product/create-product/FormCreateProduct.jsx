@@ -29,7 +29,6 @@ const defaultValues = {
 
 export default function FormCreateProduct() {
   const [btnCreateProduct, setBtnCreateProduct] = useState(false);
-
   const dispatch = useDispatch();
 
   const {
@@ -60,7 +59,6 @@ export default function FormCreateProduct() {
     body.name = name;
     body.brand = brand;
     body.category = category;
-    // body.productItemId = "";
     body.image = image;
     body.description = description;
 

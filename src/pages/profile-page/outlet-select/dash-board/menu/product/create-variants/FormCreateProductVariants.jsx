@@ -12,10 +12,10 @@ import { createProductVariants } from "@/feautures/product/ProductSlice";
 import { useState } from "react";
 
 const schema = yup.object({
-  price: yup.number(),
-  color: yup.string(),
-  size: yup.string(),
-  quantity: yup.number(),
+  price: yup.number().required(),
+  color: yup.string().required(),
+  size: yup.string().required(),
+  quantity: yup.number().required(),
 });
 
 export default function FormCreateProductVariants({

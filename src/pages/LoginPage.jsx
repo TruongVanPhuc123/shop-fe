@@ -86,13 +86,17 @@ function LoginPage() {
                 You haven`t a account?
               </Link>
             </div>
-            <Input placeholder="Email" {...register("email")} />
+            <Input placeholder="Email" {...register("email")} type="text" />
             {errors && (
               <Typography className="text-red-500">
                 {errors.email?.message}
               </Typography>
             )}
-            <Input placeholder="Password" {...register("password")} />
+            <Input
+              placeholder="Password"
+              {...register("password")}
+              type="password"
+            />
             {errors && (
               <Typography className="text-red-500">
                 {errors.password?.message}

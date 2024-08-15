@@ -21,7 +21,7 @@ export default function ProfilePage() {
             <div className="md:w-[20%]">
               <ProfileSelect />
             </div>
-            <div className="w-full">
+            <div className="w-full mb-10">
               <Outlet />
             </div>
           </div>

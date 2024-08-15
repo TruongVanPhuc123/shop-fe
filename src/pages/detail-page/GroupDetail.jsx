@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { SelectVariants } from "@/components/SelectVariants";
+import { SelectVariants } from "@/components/select/SelectVariants";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const schema = yup.object({

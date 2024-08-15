@@ -33,7 +33,12 @@ function MainHeader() {
       }`}
     >
       {logoClick ? (
-        <SelectClickTrue hanldeClick={hanldeClick} logo={logo} />
+        <SelectClickTrue
+          hanldeClick={hanldeClick}
+          logo={logo}
+          userName={userName}
+          avatarUrl={avatarUrl}
+        />
       ) : (
         <SelectClickFalse
           hanldeClick={hanldeClick}

@@ -18,19 +18,19 @@ import OrderProfile from "@/pages/profile-page/outlet-select/order-profile/Order
 function Router() {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
+      <Route
+        path="/"
+        element={
+          <AuthRequired>
+            <MainLayout />
+          </AuthRequired>
+        }
+      >
         <Route index element={<HomePage />} />
         <Route path="/detail/:id" element={<DetailPage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/cart" element={<Cart />} />
-        <Route
-          path="/order"
-          element={
-            <AuthRequired>
-              <OrderPage />
-            </AuthRequired>
-          }
-        />
+        <Route path="/order" element={<OrderPage />} />
       </Route>
 
       <Route path="/profile" element={<ProfilePage />}>

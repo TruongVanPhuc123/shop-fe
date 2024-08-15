@@ -23,7 +23,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { MdOutlineNavigateBefore } from "react-icons/md";
-import { SelectStatusOrderProfile } from "@/components/SelectStatusOrderProfile";
+import { SelectStatusOrderProfile } from "@/components/select/SelectStatusOrderProfile";
 
 export default function OrderProfile() {
   const { orders, success } = useSelector((state) => state.order);
@@ -54,7 +54,6 @@ export default function OrderProfile() {
     dispatch(
       deleteOrder({
         orderId: data.orderId,
-        orderItemsId: data.orderItemsId,
         setBtnDeleteOrder,
       })
     );
@@ -108,12 +107,12 @@ export default function OrderProfile() {
               <TableCell>
                 <img
                   width={"50px"}
-                  src={order?.orderItems[0]?.productItemId.productId.image}
+                  src={order.orderItems[0].productItemId.productId?.image}
                   alt=""
                 />
               </TableCell>
               <TableCell>
-                {order.orderItems[0].productItemId.productId.name}
+                {order.orderItems[0].productItemId.productId?.name}
               </TableCell>
               <TableCell>
                 <Typography
@@ -149,7 +148,6 @@ export default function OrderProfile() {
                     onClick={() =>
                       handleDeleteOrder({
                         orderId: order._id,
-                        orderItemsId: order.orderItems[0]._id,
                       })
                     }
                   >
