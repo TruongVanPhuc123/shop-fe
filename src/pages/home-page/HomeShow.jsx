@@ -21,7 +21,7 @@ function HomeShow() {
           imgStyles={
             "absolute h-32 -z-10 left-2 drop-shadow-2xl opacity-50 lg:hidden block"
           }
-          src={"../../public/body/Allura - Couch.png"}
+          src={"/Allura - Couch.png"}
           alt={""}
         />
         <ImageBox
@@ -29,19 +29,19 @@ function HomeShow() {
           imgStyles={
             "absolute h-32 -z-10 top-36 right-2 drop-shadow-2xl opacity-50 lg:hidden block"
           }
-          src={"../../public/body/Brazuca - UI Design.png"}
+          src={"/Brazuca - UI Design.png"}
           alt={""}
         />
         <ImageBox
           divStyles={"animate-bounce w-full h-10 drop-shadow-4xl"}
           imgStyles={"absolute h-44 z-10 top-0 right-20 lg:block hidden"}
-          src={"../../public/body/People of Brooklyn - Shoe.png"}
+          src={"/People of Brooklyn - Shoe.png"}
           alt={""}
         />
         <ImageBox
           divStyles={"animate-bounce w-40 h-10 drop-shadow-4xl"}
           imgStyles={"absolute h-44 z-10 bottom-0 left-20 lg:block hidden"}
-          src={"../../public/body/Family Values - Shopping.png"}
+          src={"/Family Values - Shopping.png"}
           alt={""}
         />
       </div>

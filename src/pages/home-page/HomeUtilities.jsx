@@ -9,7 +9,7 @@ function HomeUtilities() {
             <ImageBox
               divStyles={"flex flex-col items-center text-5xl  gap-3"}
               imgStyles={"w-[20%]"}
-              src={"../../public/body/Delivery.png"}
+              src={"/Delivery.png"}
               alt={""}
             >
               <p className="text-black lg:text-2xl text-xl uppercase">
@@ -22,7 +22,7 @@ function HomeUtilities() {
             <ImageBox
               divStyles={"flex flex-col items-center text-5xl gap-3"}
               imgStyles={"w-[20%]"}
-              src={"../../public/body/Wishlist.png"}
+              src={"/Wishlist.png"}
               alt={""}
             >
               <p className="text-black lg:text-2xl text-xl  uppercase">
@@ -35,7 +35,7 @@ function HomeUtilities() {
             <ImageBox
               divStyles={"flex flex-col items-center text-5xl gap-3"}
               imgStyles={"w-[20%]"}
-              src={"../../public/body/Card.png"}
+              src={"/Card.png"}
               alt={""}
             >
               <p className="text-black lg:text-2xl text-xl  uppercase">
@@ -48,7 +48,7 @@ function HomeUtilities() {
             <ImageBox
               divStyles={"flex flex-col items-center text-5xl gap-3"}
               imgStyles={"w-[20%]"}
-              src={"../../public/body/Bill.png"}
+              src={"/Bill.png"}
               alt={""}
             >
               <p className="text-black lg:text-2xl text-xl  uppercase">

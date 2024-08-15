@@ -20,7 +20,7 @@ function MainHeader() {
       width="58px"
       height="58px"
       // src="../../public/body/Allura - Couch.png"
-      src="../../public/nav/favicon.ico"
+      src="/favicon.ico"
       alt="hippopotamus"
     />
   );

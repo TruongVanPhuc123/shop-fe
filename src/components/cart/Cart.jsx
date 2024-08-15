@@ -51,7 +51,7 @@ export function Cart() {
               className="relative mb-4 h-60 w-60 text-muted-foreground"
             >
               <img
-                src="../../public/nav/hippo-empty-cart.png"
+                src="/hippo-empty-cart.png"
                 alt="empty shopping cart hippo"
               />
             </div>
