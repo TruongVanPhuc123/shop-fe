@@ -60,11 +60,7 @@ function LoginPage() {
       >
         <Box>
           {" "}
-          <img
-            src="../../public/nav/favicon.ico"
-            alt=""
-            className="w-20 animate-bounce"
-          />
+          <img src="/favicon.ico" alt="" className="w-20 animate-bounce" />
         </Box>
         <Typography className={"w-full"}>
           {" "}

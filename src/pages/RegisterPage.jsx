@@ -58,11 +58,7 @@ function RegisterPage() {
         className="xl:w-[22%] w-[80%]"
       >
         <Box>
-          <img
-            src="../../public/nav/favicon.ico"
-            alt=""
-            className="w-20 animate-bounce"
-          />
+          <img src="/favicon.ico" alt="" className="w-20 animate-bounce" />
         </Box>
         <Typography className={"w-full"}>
           {!!errors.responseError && (
