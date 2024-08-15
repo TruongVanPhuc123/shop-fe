@@ -19,6 +19,7 @@ function MainHeader() {
     <img
       width="58px"
       height="58px"
+      // src="../../public/body/Allura - Couch.png"
       src="../../public/nav/favicon.ico"
       alt="hippopotamus"
     />
