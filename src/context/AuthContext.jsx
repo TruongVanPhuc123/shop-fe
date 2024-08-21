@@ -125,12 +125,21 @@ function AuthProvider({ children }) {
     setSession(accessToken);
     dispatch({ type: REGISTER_SUCCESS, payload: { user } });
     callback();
+    Swal.fire({
+      text: `${response.message} !`,
+      icon: "success",
+    });
   };
 
   const logout = async (callback) => {
     setSession(null);
     dispatch({ type: LOGOUT });
     callback();
+    Swal.fire({
+      title: "Logout success",
+      text: "See you later!",
+      icon: "success",
+    });
   };
 
   return (

@@ -1,21 +1,23 @@
 import ImageBox from "@/components/ImageBox";
+import Typography from "@/components/Typography";
+import { Box, Stack } from "@mui/material";
 
 function HomeShow() {
   return (
     <section>
-      <div className="absolute w-full z-20 ">
-        <div className="flex flex-col gap-5 lg:px-80 px-12 text-center tracking-tight">
-          <p className="lg:text-4xl text-3xl text-black text-pretty font-extrabold">
+      <Box className="absolute w-full z-20">
+        <Stack gap={5} className="lg:px-80 px-12 text-center tracking-tight">
+          <Typography className="lg:text-4xl text-3xl text-black text-pretty font-extrabold">
             The Joke Tax Chronicles
-          </p>
-          <p className="font-normal lg:text-xl text-gray-400 text-[12px] text-pretty">
+          </Typography>
+          <Typography className="font-normal lg:text-xl text-gray-400 text-[12px] text-pretty">
             Once upon a time, in a far-off land, there was a very lazy king who
             spent all day lounging on his throne. One day, his advisors came to
             him with a problem: the kingdom was running out of money.
-          </p>
-        </div>
-      </div>
-      <div className="relative h-full w-full">
+          </Typography>
+        </Stack>
+      </Box>
+      <Box className="relative h-full w-full">
         <ImageBox
           divStyles={"animate-bounce w-full h-10 drop-shadow-4xl"}
           imgStyles={
@@ -44,7 +46,7 @@ function HomeShow() {
           src={"/Family Values - Shopping.png"}
           alt={""}
         />
-      </div>
+      </Box>
     </section>
   );
 }

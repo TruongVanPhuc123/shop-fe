@@ -33,7 +33,14 @@ function Router() {
         <Route path="/order" element={<OrderPage />} />
       </Route>
 
-      <Route path="/profile" element={<ProfilePage />}>
+      <Route
+        path="/profile"
+        element={
+          <AuthRequired>
+            <ProfilePage />
+          </AuthRequired>
+        }
+      >
         <Route index element={<Profile />} />
         <Route path="dash-board" element={<DashBoardPage />} />
         <Route path="order-profile" element={<OrderProfile />} />

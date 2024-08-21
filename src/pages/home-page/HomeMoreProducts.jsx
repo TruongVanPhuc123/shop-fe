@@ -27,7 +27,7 @@ function HomeMoreProducts() {
           />
           <CardProduct
             className={"flex flex-col items-center justify-between"}
-            src={"/Hyperspace - Outer Space.png"}
+            src={"/DrawKit-onlineshopping-Illustration-14.png"}
             nameCard={"Hoodie"}
             imgStyles={"w-[50%]"}
             description={

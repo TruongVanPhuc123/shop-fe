@@ -1,10 +1,14 @@
 import ImageBox from "@/components/ImageBox";
+import Typography from "@/components/Typography";
+import { Stack } from "@mui/material";
 
 function HomeInstructAccount() {
   return (
     <section>
-      <div className=" flex flex-col gap-20 text-center bg-slate-50 w-full h-auto p-10">
-        <p className="text-4xl font-bold">How To Create Account ?</p>
+      <Stack gap={20} className="text-center bg-slate-50 w-full h-auto p-10">
+        <Typography className="text-4xl font-bold">
+          How To Create Account ?
+        </Typography>
         <div className="flex lg:flex-row lg:justify-between flex-col items-center gap-10 text-center text-xl w-[100%]">
           <ImageBox
             divStyles={"lg:w-[30%] flex flex-col items-center"}
@@ -12,11 +16,11 @@ function HomeInstructAccount() {
             src={"/DrawKit-onlineshopping-Illustration-14.png"}
             alt={""}
           >
-            <p className="text-2xl font-bold">One</p>
-            <p className="text-pretty text-slate-500">
+            <Typography className="text-2xl font-bold">One</Typography>
+            <Typography className="text-pretty text-slate-500">
               Free worldwire shiping on all orders.Free worldwire shiping on all
               orders.Free worldwire shiping on all orders
-            </p>
+            </Typography>
           </ImageBox>
           <ImageBox
             divStyles={"lg:w-[30%] flex flex-col items-center"}
@@ -96,7 +100,7 @@ function HomeInstructAccount() {
             </ImageBox>
           </div>
         </div>
-      </div>
+      </Stack>
     </section>
   );
 }

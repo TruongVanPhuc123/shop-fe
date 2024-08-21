@@ -70,7 +70,7 @@ export const deleteCartItem = createAsyncThunk(
   async ({ id }) => {
     await apiService
       .delete(`/cartItems/${id}`)
-      .then((res) => {
+      .then(() => {
         Swal.fire({
           title: "Remove item success !",
           icon: "success",

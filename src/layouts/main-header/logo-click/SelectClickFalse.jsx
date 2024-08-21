@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
-import { Box, IconButton, Stack } from "@mui/material";
+import { Box, Divider, IconButton, Stack } from "@mui/material";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HiMiniShoppingCart } from "react-icons/hi2";
-import DropMenu from "@/components/DropMenu";
+import DropMenuAfterLogin from "@/components/DropMenuAfterLogin";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Typography from "@/components/Typography";
 import { getCartItems } from "@/feautures/cart/CartSlice";
+import DropMenuBeforeLogin from "@/components/DropMenuBeforeLogin";
 
 export default function SelectClickFalse({
   hanldeClick,
@@ -24,45 +25,48 @@ export default function SelectClickFalse({
   }, [dispatch, success]);
 
   return (
-    <div className="px-5 py-2 w-full">
-      <div className="flex justify-between w-full">
-        <div className="flex md:gap-10 gap-2 items-center">
+    <Box className="px-5 py-2 w-full">
+      <Stack direction={"row"} justifyContent={"space-between"} width={"100%"}>
+        <Stack direction={"row"} alignItems={"center"} gap={5}>
           <button className="w-12 h-12 cursor-pointer" onClick={hanldeClick}>
             {logo}
           </button>
-          <div className="flex items-center md:gap-12 gap-2 font-bold min-w-fit flex-shrink sm:flex hidden">
+          <div className=" sm:flex hidden items-center gap-12 font-bold min-w-fit flex-shrink">
             <Link to={"/"}>
-              <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
+              <Typography className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
                 Home
-              </span>
+              </Typography>
             </Link>
             <Link to={"/products"}>
-              <span className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
+              <Typography className="text-lg hover:text-sky-500 delay-100 cursor-pointer ">
                 Products
-              </span>
+              </Typography>
             </Link>
           </div>
-        </div>
+        </Stack>
         <div className="sm:hidden flex items-center font-bold ">TVP Shop</div>
         <div className="lg:flex md:flex flex lg:flex-1 gap-10 items-center justify-end font-bold w-[50%]">
-          <div className="flex-10 min-w-fit flex-shrink">
+          <Box>
             {!userName ? (
-              <ul className="flex gap-10 text-lg items-center text-[18px]">
-                <Link to={"/login"}>
-                  <li className="hover:text-sky-500 transition delay-100 cursor-pointer">
-                    Sign in
-                  </li>
-                </Link>
-                <div className="text-gray-100">|</div>
-                <Link to={"/register"}>
-                  <li className="hover:text-sky-500  transition delay-100 cursor-pointer">
-                    Create Account
-                  </li>
-                </Link>
-                <div className="text-gray-100">|</div>
-              </ul>
+              <Box>
+                <ul className="md:flex hidden gap-10 text-lg items-center text-[18px]">
+                  <Link to={"/login"}>
+                    <Typography className="hover:text-sky-500 transition delay-100 cursor-pointer">
+                      Sign in
+                    </Typography>
+                  </Link>
+                  <Link to={"/register"}>
+                    <Typography className="hover:text-sky-500 transition delay-100 cursor-pointer">
+                      Create Account
+                    </Typography>
+                  </Link>
+                </ul>
+                <div className="md:hidden flex">
+                  <DropMenuBeforeLogin />
+                </div>
+              </Box>
             ) : (
-              <div className="flex items-center">
+              <Stack direction={"row"} alignItems={"center"}>
                 <div className="flex items-center sm:flex hidden">
                   {" "}
                   <IconButton size="medium">
@@ -94,13 +98,13 @@ export default function SelectClickFalse({
                 </div>
                 <div className="sm:hidden flex items-center">
                   {" "}
-                  <DropMenu />
+                  <DropMenuAfterLogin />
                 </div>
-              </div>
+              </Stack>
             )}
-          </div>
+          </Box>
         </div>
-      </div>
-    </div>
+      </Stack>
+    </Box>
   );
 }

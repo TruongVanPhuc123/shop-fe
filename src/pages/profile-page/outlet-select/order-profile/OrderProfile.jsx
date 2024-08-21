@@ -38,6 +38,7 @@ export default function OrderProfile() {
   const id = user?._id;
 
   const dataOrders = orders?.orders;
+  const totalPages = orders?.totalPages;
 
   const handlePrevPage = () => {
     if (page > 1) {
@@ -87,6 +88,9 @@ export default function OrderProfile() {
               <MdOutlineNavigateNext />
             </Button>
           </Stack>
+          <Box className="font-medium">
+            <Typography>totalPages: {totalPages}</Typography>
+          </Box>
         </Stack>
       </TableCaption>
       <TableHeader>

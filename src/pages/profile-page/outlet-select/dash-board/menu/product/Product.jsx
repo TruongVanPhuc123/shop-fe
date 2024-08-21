@@ -5,9 +5,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Divider } from "@mui/material";
-
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+
 import {
   deleteProduct,
   deleteProductVariants,
@@ -23,6 +23,7 @@ import FormCreateProductVariants from "./create-variants/FormCreateProductVarian
 export default function Product() {
   const { products, success } = useSelector((state) => state.product);
   const data = products?.products;
+  const totalPages = products?.totalPages;
   const dispatch = useDispatch();
 
   const [dataUpdateProduct, setdataUpdateProduct] = useState({});
@@ -57,7 +58,10 @@ export default function Product() {
           data={data}
           handleBtnValue={handleBtnValue}
           setProductItem={setProductItem}
-          productItem={productItem}
+          totalPages={totalPages}
+          page={page}
+          setPage={setPage}
+          setSearch={setSearch}
         />
       ),
     },

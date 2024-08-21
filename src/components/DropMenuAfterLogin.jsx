@@ -17,7 +17,7 @@ import { GiClothes } from "react-icons/gi";
 import { MdAccountCircle } from "react-icons/md";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 
-export default function DropMenu() {
+export default function DropMenuAfterLogin() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="text-2xl">

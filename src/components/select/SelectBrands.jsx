@@ -1,5 +1,4 @@
-import * as React from "react";
-
+import React from "react";
 import {
   Select,
   SelectContent,
@@ -9,12 +8,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function SelectAttribute({ name, array, setProductItem }) {
-  const handleOnValueChange = (id) => {
-    // if (id) {
-    //   let newValue = array.find((value) => value._id === id);
-    //   setProductItem(newValue);
-    // }
+export default function SelectBrands({ name, array, brands, setBrands }) {
+  const handleOnValueChange = (element) => {
+    setBrands([...brands, element]);
   };
 
   return (
@@ -24,11 +20,11 @@ export function SelectAttribute({ name, array, setProductItem }) {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {/* {array?.map((element, index) => (
-            <SelectItem key={index} value={element._id}>
-              {`${element.size} - ${element.color}`}
+          {array?.map((element, index) => (
+            <SelectItem key={index} value={element}>
+              {`${element}`}
             </SelectItem>
-          ))} */}
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>

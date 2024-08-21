@@ -1,6 +1,6 @@
 import { CardProduct } from "@/components/CardProduct";
 import { Button } from "@/components/ui/button";
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { MdOutlineNavigateBefore } from "react-icons/md";
@@ -9,6 +9,7 @@ function Products({
   data,
   handleDetail,
   page,
+  totalPages,
   handlePrevPage,
   handleNextPage,
 }) {
@@ -30,17 +31,23 @@ function Products({
       </div>
       <Stack
         direction={"row"}
-        spacing={2}
         alignItems={"center"}
-        justifyContent={"center"}
+        justifyContent={"space-between"}
       >
-        <Button variant="ghost" onClick={handlePrevPage}>
-          <MdOutlineNavigateBefore />
-        </Button>
-        <Typography>{page}</Typography>
-        <Button variant="ghost" onClick={handleNextPage}>
-          <MdOutlineNavigateNext />
-        </Button>
+        <Stack direction={"row"} spacing={2} alignItems={"center"}>
+          <Button variant="ghost" onClick={handlePrevPage}>
+            <MdOutlineNavigateBefore />
+          </Button>
+          <Typography>{page}</Typography>
+          <Button variant="ghost" onClick={handleNextPage}>
+            <MdOutlineNavigateNext />
+          </Button>
+        </Stack>
+        <Box>
+          <Typography className="font-medium">
+            totalPages: {totalPages}
+          </Typography>
+        </Box>
       </Stack>
     </Stack>
   );
