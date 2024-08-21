@@ -1,6 +1,5 @@
 import apiService from "@/app/apiService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import Swal from "sweetalert2";
 
 const initialState = {
@@ -8,54 +7,6 @@ const initialState = {
   orderIdCreated: null,
   success: false,
   status: "success",
-};
-
-let isFetching = false;
-
-const checKPayment = async (price, id, navigate) => {
-  if (isFetching) {
-    return;
-  } else {
-    try {
-      const res = await axios.get(
-        `https://script.google.com/macros/s/AKfycbyRZOwsXHgZrwz-B7xVJaDVQbPEpXv5Equ6rdlB-gJi0RV0bkoHM86ODOl-ljbrmH6e/exec`
-      );
-      const data = res.data;
-      const lastData = data.data[data.data.length - 1];
-      const lastPrice = lastData["Giá trị"];
-      const lastContent = lastData["Mô tả"];
-
-      if (lastPrice >= price && lastContent.includes(id)) {
-        isFetching = true;
-        //update order status
-        const body = {};
-        body.status = "accepted";
-        await apiService.put(`/orders/${id}`, body);
-
-        //delete carItems after status is a accepted
-        // await apiService.delete(`/cartItems/${id}`);
-
-        navigate("/");
-        Swal.fire({
-          title: "Success Payment",
-          text: "Thank you for your order",
-          icon: "success",
-        });
-      } else {
-        Swal.fire({
-          title: "Error Payment",
-          text: "Order failed",
-          icon: "error",
-        });
-      }
-    } catch (error) {
-      Swal.fire({
-        title: "Error Payment",
-        text: error.message,
-        icon: "error",
-      });
-    }
-  }
 };
 
 export const getOrders = createAsyncThunk("getOrders", async () => {
@@ -78,11 +29,16 @@ export const createOrder = createAsyncThunk(
   async ({ body, navigate, setBtnOrder }) => {
     try {
       const response = await apiService.post(`/orders`, body);
-      setTimeout(() => {
-        setInterval(() => {
-          checKPayment(body.totalPrices, response.data._id, navigate, body);
-        }, 1000);
-      }, 5000);
+
+      //delete carItems after status is a accepted
+      // await apiService.delete(`/cartItems/${id}`);
+      navigate("/");
+
+      Swal.fire({
+        title: "Success Payment",
+        text: "Thanks for your order",
+        icon: "success",
+      });
       return response.data;
     } catch (error) {
       Swal.fire({
@@ -151,9 +107,9 @@ export const OrderSlice = createSlice({
       .addCase(createOrder.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(createOrder.fulfilled, (state, action) => {
+      .addCase(createOrder.fulfilled, (state) => {
         state.status = "success";
-        state.orderIdCreated = action.payload._id;
+        state.success = true;
       })
       .addCase(createOrder.rejected, (state) => {
         state.status = "rejected";

@@ -111,12 +111,12 @@ export default function OrderProfile() {
               <TableCell>
                 <img
                   width={"50px"}
-                  src={order.orderItems[0].productItemId.productId?.image}
+                  src={order?.orderItems[0]?.productItemId?.productId?.image}
                   alt=""
                 />
               </TableCell>
               <TableCell>
-                {order.orderItems[0].productItemId.productId?.name}
+                {order?.orderItems[0]?.productItemId?.productId?.name}
               </TableCell>
               <TableCell>
                 <Typography
