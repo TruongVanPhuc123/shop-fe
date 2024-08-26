@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Select,
   SelectContent,
@@ -8,10 +7,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export default function SelectBrands({ name, array, brands, setBrands }) {
-  const handleOnValueChange = (element) => {
-    setBrands([...brands, element]);
-  };
+export default function SelectProduct({ name, array }) {
+  const handleOnValueChange = (element) => {};
 
   return (
     <Select onValueChange={handleOnValueChange}>

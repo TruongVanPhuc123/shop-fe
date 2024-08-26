@@ -29,9 +29,6 @@ export const createOrder = createAsyncThunk(
   async ({ body, navigate, setBtnOrder }) => {
     try {
       const response = await apiService.post(`/orders`, body);
-
-      //delete carItems after status is a accepted
-      // await apiService.delete(`/cartItems/${id}`);
       navigate("/");
 
       Swal.fire({

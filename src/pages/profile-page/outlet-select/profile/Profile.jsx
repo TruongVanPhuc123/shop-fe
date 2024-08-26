@@ -17,6 +17,7 @@ const schema = yup.object({
   name: yup.string().max(30),
   address: yup.string(),
   phoneNumber: yup.string(),
+  avatarUrl: yup.string().optional(),
 });
 
 const defaultValues = {
@@ -61,7 +62,8 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(getCurrentUser());
-  }, [dispatch, success]);
+    reset({ name, address, avatarUrl, phoneNumber });
+  }, [dispatch, success, name, address, avatarUrl, phoneNumber, reset]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
