@@ -8,6 +8,7 @@ function MainHeader() {
   const [logoClick, setLogoClick] = useState(false);
 
   const userName = auth?.user?.name;
+  const id = auth?.user?._id;
   const avatarUrl = auth?.user?.avatarUrl;
   // const { logout } = auth;
 
@@ -45,6 +46,7 @@ function MainHeader() {
           hanldeClick={hanldeClick}
           logo={logo}
           userName={userName}
+          id={id}
           avatarUrl={avatarUrl}
         />
       )}

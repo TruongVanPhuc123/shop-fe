@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Box, Divider, IconButton, Stack } from "@mui/material";
+import { Box, IconButton, Stack } from "@mui/material";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import DropMenuAfterLogin from "@/components/DropMenuAfterLogin";
@@ -13,6 +13,7 @@ export default function SelectClickFalse({
   hanldeClick,
   logo,
   userName,
+  id,
   avatarUrl,
 }) {
   const { cartItems, success } = useSelector((state) => state.cart);
@@ -47,7 +48,7 @@ export default function SelectClickFalse({
         <div className="sm:hidden flex items-center font-bold ">TVP Shop</div>
         <div className="lg:flex md:flex flex lg:flex-1 gap-10 items-center justify-end font-bold w-[50%]">
           <Box>
-            {!userName ? (
+            {!id ? (
               <Box>
                 <ul className="md:flex hidden gap-10 text-lg items-center text-[18px]">
                   <Link to={"/login"}>
