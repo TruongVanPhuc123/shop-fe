@@ -25,7 +25,7 @@ export const updateUser = createAsyncThunk(
           text: res.message,
           icon: "success",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2500,
         });
         setBtnUpdateUser(false);
       })
@@ -43,8 +43,12 @@ export const updateUser = createAsyncThunk(
 );
 
 export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
-  const response = await apiService.get(`/users/me`);
-  return response;
+  try {
+    const response = await apiService.get(`/users/me`);
+    return response;
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 export const UserSlice = createSlice({

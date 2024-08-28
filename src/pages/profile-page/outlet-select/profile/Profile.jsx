@@ -1,7 +1,6 @@
 import Typography from "@/components/Typography";
 import { Input } from "@/components/ui/input";
 import { Box, Divider, Stack } from "@mui/material";
-// import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 
@@ -30,6 +29,7 @@ const defaultValues = {
 export default function Profile() {
   const [btnUpdateUser, setBtnUpdateUser] = useState(false);
   const [btnUpdate, setbtnUpdate] = useState(false);
+  const [imgFile, setImgFile] = useState();
 
   const { user, success } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -43,22 +43,23 @@ export default function Profile() {
   const avatarUrl = user?.avatarUrl;
   const id = user?._id;
 
-  const { register, setValue, reset, handleSubmit } = useForm({
+  const { register, reset, handleSubmit } = useForm({
     resolver: yupResolver(schema),
     defaultValues,
   });
 
   const handleFile = () => {
     const file = fileURL.current.files[0];
-    console.log(fileURL.current.files);
+
     if (file) {
-      setValue("avatarUrl", file);
+      setImgFile(file);
     }
   };
 
-  const onSubmit = async (body) => {
-    console.log(body);
+  const onSubmit = async (data) => {
     setBtnUpdateUser(true);
+    const { name, phoneNumber, address } = data;
+    const body = { name, phoneNumber, address, avatarUrl: imgFile };
     dispatch(updateUser({ id, body, setBtnUpdateUser }));
   };
 
