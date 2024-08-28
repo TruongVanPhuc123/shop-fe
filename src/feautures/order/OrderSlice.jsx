@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 
 const initialState = {
   orders: [],
+  ordersByCurrentUserId: [],
   orderIdCreated: null,
   success: false,
   status: "success",
@@ -29,10 +30,10 @@ export const getOrders = createAsyncThunk(
 
 export const getOrdersByCurrentUserId = createAsyncThunk(
   "getOrdersByCurrentUserId",
-  async ({ id, page, limit, statusOrder }) => {
+  async ({ page, limit, statusOrder }) => {
     try {
       const response = await apiService.get(
-        `/orders/${id}?status=${statusOrder}&page=${page}&limit=${limit}`
+        `/orders/me?status=${statusOrder}&page=${page}&limit=${limit}`
       );
       return response.data;
     } catch (error) {
@@ -115,7 +116,7 @@ export const OrderSlice = createSlice({
       })
       .addCase(getOrdersByCurrentUserId.fulfilled, (state, action) => {
         state.status = "success";
-        state.orders = action.payload;
+        state.ordersByCurrentUserId = action.payload;
         state.success = action.payload.success;
       })
       .addCase(getOrdersByCurrentUserId.rejected, (state) => {

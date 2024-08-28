@@ -26,14 +26,13 @@ import { MdOutlineNavigateBefore } from "react-icons/md";
 import { SelectStatusOrderProfile } from "@/components/select/SelectStatusOrderProfile";
 
 export default function OrderProfile() {
-  const { orders, success } = useSelector((state) => state.order);
+  const { ordersByCurrentUserId, success } = useSelector(
+    (state) => state.order
+  );
   const dispatch = useDispatch();
 
-  const { user } = useAuth();
-  const id = user?._id;
-
-  const dataOrders = orders?.orders;
-  const totalPages = orders?.totalPages;
+  const dataOrders = ordersByCurrentUserId?.orders;
+  const totalPages = ordersByCurrentUserId?.totalPages;
 
   const [btnDeleteOrder, setBtnDeleteOrder] = useState(false);
   const [statusOrder, setStatusOrder] = useState("All");
@@ -63,8 +62,8 @@ export default function OrderProfile() {
   };
 
   useEffect(() => {
-    dispatch(getOrdersByCurrentUserId({ id, page, limit, statusOrder }));
-  }, [dispatch, id, success, page, limit, statusOrder]);
+    dispatch(getOrdersByCurrentUserId({ page, limit, statusOrder }));
+  }, [dispatch, success, page, limit, statusOrder]);
 
   return (
     <Table>
@@ -113,12 +112,12 @@ export default function OrderProfile() {
               <TableCell>
                 <img
                   width={"50px"}
-                  src={order?.orderItems[0]?.productItemId?.productId?.image}
+                  src={order.orderItems[0].productItemId.productId.image}
                   alt=""
                 />
               </TableCell>
               <TableCell>
-                {order?.orderItems[0]?.productItemId?.productId?.name}
+                {order.orderItems[0].productItemId.productId.name}
               </TableCell>
               <TableCell>
                 <Typography
