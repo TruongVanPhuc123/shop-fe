@@ -15,18 +15,34 @@ const initialState = {
 export const getProducts = createAsyncThunk(
   "getProducts",
   async ({ page, limit, search }) => {
-    const response = await apiService.get(
-      `/products?search=${search}&page=${page}&limit=${limit}`
-    );
-    return response.data;
+    try {
+      const response = await apiService.get(
+        `/products?search=${search}&page=${page}&limit=${limit}`
+      );
+      return response.data;
+    } catch (error) {
+      Swal.fire({
+        title: "Get products failed",
+        text: error.message,
+        icon: "error",
+      });
+    }
   }
 );
 
 export const getProductDetail = createAsyncThunk(
   "getProductDetail",
   async ({ id }) => {
-    const response = await apiService.get(`/products/${id}`);
-    return response;
+    try {
+      const response = await apiService.get(`/products/${id}`);
+      return response;
+    } catch (error) {
+      Swal.fire({
+        title: "Get products detail failed",
+        text: error.message,
+        icon: "error",
+      });
+    }
   }
 );
 
@@ -37,25 +53,28 @@ export const createProduct = createAsyncThunk(
     const imageUrl = await cloudinaryUpload(image);
     body.image = imageUrl;
 
-    try {
-      await apiService.post(`/products`, body).then(async (response) => {
+    await apiService
+      .post(`/products`, body)
+      .then(async (response) => {
         Swal.fire({
           title: response.message,
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setBtnCreateProduct(false);
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Create Product Failed",
+          text: "Error: " + error.message,
+          icon: "error",
         });
         setBtnCreateProduct(false);
       });
-      reset();
-      const response = await apiService.get(`/products`);
-      return response;
-    } catch (error) {
-      Swal.fire({
-        title: "Create Product Failed",
-        text: "Error: " + error.message,
-        icon: "error",
-      });
-      setBtnCreateProduct(false);
-    }
+    reset();
+    const response = await apiService.get(`/products`);
+    return response;
   }
 );
 
@@ -69,6 +88,8 @@ export const updateProduct = createAsyncThunk(
           title: "Update Product Success",
           text: res.message,
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
         });
         reset();
         setBtnUpdateProduct(false);
@@ -96,6 +117,8 @@ export const deleteProduct = createAsyncThunk(
           title: "Delete Product Success",
           text: res.message,
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
         });
       })
       .catch((error) => {
@@ -111,25 +134,27 @@ export const deleteProduct = createAsyncThunk(
 export const createProductVariants = createAsyncThunk(
   "createProductVariants",
   async ({ body, setBtnCreateProductVariants, reset }) => {
-    try {
-      await apiService.post(`/productItems`, body).then(async (response) => {
+    await apiService
+      .post(`/productItems`, body)
+      .then(async (response) => {
         Swal.fire({
           title: response.message,
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setBtnCreateProductVariants(false);
+        reset();
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Create Product Failed",
+          text: "Error: " + error.message,
+          icon: "error",
+          showConfirmButton: false,
         });
         setBtnCreateProductVariants(false);
       });
-      reset();
-      const response = await apiService.get(`/products`);
-      return response;
-    } catch (error) {
-      Swal.fire({
-        title: "Create Product Failed",
-        text: "Error: " + error.message,
-        icon: "error",
-      });
-      setBtnCreateProductVariants(false);
-    }
   }
 );
 
@@ -143,6 +168,8 @@ export const updateProductVariants = createAsyncThunk(
           title: "Update Product Variants Success",
           text: res.message,
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
         });
         reset();
         setBtnUpdateProductVariants(false);
@@ -169,6 +196,8 @@ export const deleteProductVariants = createAsyncThunk(
           title: "Delete Product Variants Success",
           text: res.message,
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
         });
       })
       .catch((error) => {
@@ -248,7 +277,7 @@ export const ProductSlice = createSlice({
       .addCase(createProductVariants.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(createProductVariants.fulfilled, (state, action) => {
+      .addCase(createProductVariants.fulfilled, (state) => {
         state.status = "success";
         state.success = true;
       })
@@ -271,7 +300,7 @@ export const ProductSlice = createSlice({
       .addCase(deleteProductVariants.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(deleteProductVariants.fulfilled, (state, action) => {
+      .addCase(deleteProductVariants.fulfilled, (state) => {
         state.status = "success";
         state.success = true;
       })

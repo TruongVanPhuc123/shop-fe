@@ -3,6 +3,7 @@ const cloudinary_preset = "shop-website";
 import axios from "axios";
 
 export const cloudinaryUpload = async (image) => {
+  console.log(image);
   if (!image) return "";
   try {
     const formData = new FormData();

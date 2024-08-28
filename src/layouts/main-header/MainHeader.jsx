@@ -1,29 +1,29 @@
-import { useState } from "react";
-import useAuth from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
 import SelectClickTrue from "./logo-click/SelectClickTrue";
 import SelectClickFalse from "./logo-click/SelectClickFalse";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser } from "@/feautures/user/UserSlice";
 
 function MainHeader() {
-  const auth = useAuth();
   const [logoClick, setLogoClick] = useState(false);
 
-  const userName = auth?.user?.name;
-  const id = auth?.user?._id;
-  const avatarUrl = auth?.user?.avatarUrl;
-  // const { logout } = auth;
+  const dispatch = useDispatch();
+  const { user, success } = useSelector((state) => state.user);
+
+  const userName = user?.name;
+  const id = user?._id;
+  const avatarUrl = user?.avatarUrl;
 
   const hanldeClick = () => {
     setLogoClick(!logoClick);
   };
 
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch, success]);
+
   const logo = (
-    <img
-      width="58px"
-      height="58px"
-      // src="../../public/body/Allura - Couch.png"
-      src="/favicon.ico"
-      alt="hippopotamus"
-    />
+    <img width="58px" height="58px" src="/favicon.ico" alt="hippopotamus" />
   );
 
   return (

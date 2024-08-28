@@ -3,6 +3,7 @@ import Typography from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { Box, Divider, Stack } from "@mui/material";
 import { useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function CartItem({ data, handleActions }) {
   const [btnUpdate, setBtnUpdate] = useState(false);
@@ -102,7 +103,9 @@ export default function CartItem({ data, handleActions }) {
                         variant="outline"
                         className="w-5 h-6 py-0"
                       >
-                        <Typography className={"animate-spin"}>c</Typography>
+                        <Typography className={"animate-spin"}>
+                          <AiOutlineLoading3Quarters />
+                        </Typography>
                       </Button>
                     )}
                     <Typography>{cartItem.quantity}</Typography>
@@ -125,7 +128,9 @@ export default function CartItem({ data, handleActions }) {
                         variant="outline"
                         className="w-5 h-6 py-0"
                       >
-                        <Typography className={"animate-spin"}>c</Typography>
+                        <Typography className={"animate-spin"}>
+                          <AiOutlineLoading3Quarters />
+                        </Typography>
                       </Button>
                     )}
                   </Stack>

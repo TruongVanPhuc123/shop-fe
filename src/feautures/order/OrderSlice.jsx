@@ -9,18 +9,39 @@ const initialState = {
   status: "success",
 };
 
-export const getOrders = createAsyncThunk("getOrders", async () => {
-  const response = await apiService.get(`/orders`);
-  return response.data;
-});
+export const getOrders = createAsyncThunk(
+  "getOrders",
+  async ({ page, limit, statusOrder }) => {
+    try {
+      const response = await apiService.get(
+        `/orders?status=${statusOrder}&page=${page}&limit=${limit}`
+      );
+      return response.data;
+    } catch (error) {
+      Swal.fire({
+        title: "Get orders failed !",
+        text: error.message,
+        icon: "error",
+      });
+    }
+  }
+);
 
 export const getOrdersByCurrentUserId = createAsyncThunk(
   "getOrdersByCurrentUserId",
   async ({ id, page, limit, statusOrder }) => {
-    const response = await apiService.get(
-      `/orders/${id}?page=${page}&limit=${limit}&status=${statusOrder}`
-    );
-    return response.data;
+    try {
+      const response = await apiService.get(
+        `/orders/${id}?status=${statusOrder}&page=${page}&limit=${limit}`
+      );
+      return response.data;
+    } catch (error) {
+      Swal.fire({
+        title: "Get orders failed !",
+        text: error.message,
+        icon: "error",
+      });
+    }
   }
 );
 

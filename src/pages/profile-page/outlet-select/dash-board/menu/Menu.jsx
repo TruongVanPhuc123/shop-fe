@@ -3,6 +3,7 @@ import Product from "./product/Product";
 import { DateForm } from "@/components/DateForm";
 import { useState } from "react";
 import OrderDashBoard from "./order-dashboard/OrderDashBoard";
+import UserDashBoard from "./user/UserDashBoard";
 
 const tabs = [
   {
@@ -13,7 +14,7 @@ const tabs = [
   {
     value: "user",
     trigger: "User",
-    content: "",
+    content: <UserDashBoard />,
   },
   {
     value: "product",

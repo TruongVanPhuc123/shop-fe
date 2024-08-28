@@ -12,7 +12,7 @@ const initialState = {
 
 export const updateUser = createAsyncThunk(
   "updateUser",
-  async ({ id, body, setBtnUpdateUser, reset }) => {
+  async ({ id, body, setBtnUpdateUser }) => {
     const image = body.avatarUrl;
     const imageUrl = await cloudinaryUpload(image);
     body.avatarUrl = imageUrl;
@@ -24,9 +24,10 @@ export const updateUser = createAsyncThunk(
           title: "Update User Success",
           text: res.message,
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
         });
         setBtnUpdateUser(false);
-        // reset();
       })
       .catch((error) => {
         Swal.fire({

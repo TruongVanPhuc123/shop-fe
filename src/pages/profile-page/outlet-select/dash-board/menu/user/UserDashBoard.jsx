@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function User() {
+export default function UserDashBoard() {
   return <div></div>;
 }

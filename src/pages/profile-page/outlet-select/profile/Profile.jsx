@@ -50,14 +50,16 @@ export default function Profile() {
 
   const handleFile = () => {
     const file = fileURL.current.files[0];
+    console.log(fileURL.current.files);
     if (file) {
       setValue("avatarUrl", file);
     }
   };
 
   const onSubmit = async (body) => {
+    console.log(body);
     setBtnUpdateUser(true);
-    dispatch(updateUser({ id, body, setBtnUpdateUser, reset }));
+    dispatch(updateUser({ id, body, setBtnUpdateUser }));
   };
 
   useEffect(() => {

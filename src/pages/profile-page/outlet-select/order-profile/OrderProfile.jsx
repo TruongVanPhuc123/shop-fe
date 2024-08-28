@@ -29,16 +29,16 @@ export default function OrderProfile() {
   const { orders, success } = useSelector((state) => state.order);
   const dispatch = useDispatch();
 
-  const [btnDeleteOrder, setBtnDeleteOrder] = useState(false);
-  const [statusOrder, setStatusOrder] = useState("All");
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
-
   const { user } = useAuth();
   const id = user?._id;
 
   const dataOrders = orders?.orders;
   const totalPages = orders?.totalPages;
+
+  const [btnDeleteOrder, setBtnDeleteOrder] = useState(false);
+  const [statusOrder, setStatusOrder] = useState("All");
+  const [page, setPage] = useState(1);
+  const [limit] = useState(5);
 
   const handlePrevPage = () => {
     if (page > 1) {
@@ -47,7 +47,9 @@ export default function OrderProfile() {
   };
 
   const handleNextPage = () => {
-    setPage(page + 1);
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
   };
 
   const handleDeleteOrder = (data) => {
@@ -133,15 +135,15 @@ export default function OrderProfile() {
               <TableCell>
                 <Stack direction={"row"} spacing={1}>
                   <Typography>
-                    Size: {order.orderItems[0].productItemId.size}
+                    Size: {order.orderItems[0].productItemId?.size}
                   </Typography>
                   <Typography>
-                    Color: {order.orderItems[0].productItemId.color}
+                    Color: {order.orderItems[0].productItemId?.color}
                   </Typography>
                 </Stack>
               </TableCell>
               <TableCell>
-                {order.orderItems[0].productItemId.price *
+                {order.orderItems[0].productItemId?.price *
                   order.orderItems[0].quantity}
               </TableCell>
               <TableCell>
