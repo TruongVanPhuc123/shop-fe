@@ -114,11 +114,15 @@ function AuthProvider({ children }) {
     });
   };
 
-  const register = async ({ name, email, password }, callback) => {
+  const register = async (
+    { name, email, password, comfirmPassword },
+    callback
+  ) => {
     const response = await apiService.post("/auth/register", {
       name,
       email,
       password,
+      comfirmPassword,
     });
     const { user, accessToken } = response.data;
 

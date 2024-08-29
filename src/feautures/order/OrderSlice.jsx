@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 const initialState = {
   orders: [],
   ordersByCurrentUserId: [],
-  orderIdCreated: null,
   success: false,
   status: "success",
 };
@@ -94,6 +93,32 @@ export const deleteOrder = createAsyncThunk(
   }
 );
 
+export const deleteOrderItem = createAsyncThunk(
+  "deleteOrderItem",
+  async ({ orderItemId, setBtnDeleteOrder }) => {
+    await apiService
+      .delete(`/orderItems/${orderItemId}`)
+      .then(() => {
+        Swal.fire({
+          title: "Delete Order Item",
+          text: "Order item deleted",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+        setBtnDeleteOrder(false);
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Delete Order Item",
+          text: error.message,
+          icon: "error",
+        });
+        setBtnDeleteOrder(false);
+      });
+  }
+);
+
 export const OrderSlice = createSlice({
   name: "order",
   initialState,
@@ -126,9 +151,9 @@ export const OrderSlice = createSlice({
       .addCase(createOrder.pending, (state) => {
         state.status = "pending";
       })
-      .addCase(createOrder.fulfilled, (state) => {
+      .addCase(createOrder.fulfilled, (state, action) => {
         state.status = "success";
-        state.success = true;
+        state.success = action.payload.success;
       })
       .addCase(createOrder.rejected, (state) => {
         state.status = "rejected";
@@ -142,6 +167,17 @@ export const OrderSlice = createSlice({
         state.success = true;
       })
       .addCase(deleteOrder.rejected, (state) => {
+        state.status = "rejected";
+      });
+    builder
+      .addCase(deleteOrderItem.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(deleteOrderItem.fulfilled, (state) => {
+        state.status = "success";
+        state.success = true;
+      })
+      .addCase(deleteOrderItem.rejected, (state) => {
         state.status = "rejected";
       });
   },

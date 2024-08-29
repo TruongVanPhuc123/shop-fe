@@ -10,12 +10,19 @@ import { Box, Stack } from "@mui/material";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Typography from "@/components/Typography";
 
-const defaultValues = { name: "", email: "", password: "", remember: true };
+const defaultValues = {
+  name: "",
+  email: "",
+  password: "",
+  comfirmPassword: "",
+  remember: true,
+};
 
 const schema = yup.object({
   name: yup.string().required("Name required"),
   email: yup.string().email("Invalid email").required("Email required"),
   password: yup.string().required("Password required"),
+  comfirmPassword: yup.string().required("Comfirm password required"),
 });
 
 function RegisterPage() {
@@ -34,9 +41,9 @@ function RegisterPage() {
   });
 
   const onSubmit = async (data) => {
-    const { name, email, password } = data;
+    const { name, email, password, comfirmPassword } = data;
     try {
-      await auth.register({ name, email, password }, () => {
+      await auth.register({ name, email, password, comfirmPassword }, () => {
         navigate("/login");
       });
     } catch (error) {
@@ -83,9 +90,21 @@ function RegisterPage() {
             {errors && <p className="text-red-500">{errors.name?.message}</p>}
             <Input placeholder="Email" {...register("email")} />
             {errors && <p className="text-red-500">{errors.email?.message}</p>}
-            <Input placeholder="Password" {...register("password")} />
+            <Input
+              type="password"
+              placeholder="Password"
+              {...register("password")}
+            />
             {errors && (
               <p className="text-red-500">{errors.password?.message}</p>
+            )}
+            <Input
+              type="password"
+              placeholder="Comfirm Password"
+              {...register("comfirmPassword")}
+            />
+            {errors && (
+              <p className="text-red-500">{errors.comfirmPassword?.message}</p>
             )}
 
             {!isSubmitting ? (
