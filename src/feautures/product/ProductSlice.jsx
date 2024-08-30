@@ -81,6 +81,8 @@ export const createProduct = createAsyncThunk(
 export const updateProduct = createAsyncThunk(
   "updateProduct",
   async ({ id, body, setBtnUpdateProduct, reset }) => {
+    const imageUrl = await cloudinaryUpload(body.image);
+    body.image = imageUrl;
     await apiService
       .put(`/products/${id}`, body)
       .then((res) => {
@@ -91,7 +93,6 @@ export const updateProduct = createAsyncThunk(
           showConfirmButton: false,
           timer: 1500,
         });
-        reset();
         setBtnUpdateProduct(false);
       })
       .catch((error) => {
@@ -102,8 +103,7 @@ export const updateProduct = createAsyncThunk(
         });
         setBtnUpdateProduct(false);
       });
-    const response = await apiService.get(`/products`);
-    return response;
+    reset();
   }
 );
 
@@ -128,6 +128,8 @@ export const deleteProduct = createAsyncThunk(
           icon: "error",
         });
       });
+    const response = await apiService.get("/products");
+    return response;
   }
 );
 
@@ -256,8 +258,7 @@ export const ProductSlice = createSlice({
       })
       .addCase(updateProduct.fulfilled, (state, action) => {
         state.status = "success";
-        state.products = action.payload.data;
-        state.success = action.payload.success;
+        state.success = true;
       })
       .addCase(updateProduct.rejected, (state) => {
         state.status = "rejected";
@@ -268,7 +269,8 @@ export const ProductSlice = createSlice({
       })
       .addCase(deleteProduct.fulfilled, (state, action) => {
         state.status = "success";
-        state.success = true;
+        state.products = action.payload.data;
+        state.success = action.payload.success;
       })
       .addCase(deleteProduct.rejected, (state) => {
         state.status = "rejected";

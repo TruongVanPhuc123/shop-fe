@@ -40,6 +40,8 @@ export default function CartItem({ data, handleActions }) {
     });
   };
 
+  console.log(data);
+
   return (
     <>
       <Divider />
@@ -51,21 +53,20 @@ export default function CartItem({ data, handleActions }) {
         <>
           {" "}
           {data.map((cartItem, index) => (
-            <Stack key={index} direction={"row"} className="p-5" spacing={5}>
-              <Box className="xl:w-[10%] w-auto">
-                <img
-                  src={`${cartItem.productItemId.productId.image}`}
-                  alt="Image"
-                />
-              </Box>
-              <div className="xl:flex w-full h-auto gap-10 items-center justify-between">
-                <Stack spacing={1} className="mb-2">
+            <div className="flex justify-between gap-2 p-2" key={index}>
+              <img
+                className="xl:w-[10%] w-1/2"
+                src={`${cartItem.productItemId.productId.image || ""}`}
+                alt="Image"
+              />
+              <div className="xl:flex xl:w-full xl:gap-10 w-1/2 items-center justify-between p-2">
+                <Stack spacing={1} className="mb-2 xl:w-[20%] w-full">
                   <Typography className={"font-medium text-lg"}>
                     {cartItem.productItemId.productId.name}
                   </Typography>
                   <Typography
                     className={
-                      "text-sm text-ellipsis overflow-hidden whitespace-nowrap w-full"
+                      "text-sm text-ellipsis overflow-hidden whitespace-nowrap "
                     }
                   >
                     {cartItem.productItemId.productId.description}
@@ -81,7 +82,11 @@ export default function CartItem({ data, handleActions }) {
                   <Typography>Color: {cartItem.productItemId.color}</Typography>
                 </Stack>
 
-                <Stack alignItems={"start"} justifyContent={"start"}>
+                <Stack
+                  alignItems={"center"}
+                  justifyContent={"space-between"}
+                  className=""
+                >
                   <Stack direction={"row"} className="px-0" spacing={1}>
                     {" "}
                     {!btnUpdate ? (
@@ -148,10 +153,10 @@ export default function CartItem({ data, handleActions }) {
                   </Button>
                 </Stack>
                 <Typography>
-                  Price: {cartItem.productItemId.price * cartItem.quantity}
+                  Price: {`${cartItem.productItemId.price * cartItem.quantity}`}
                 </Typography>
               </div>
-            </Stack>
+            </div>
           ))}
         </>
       )}

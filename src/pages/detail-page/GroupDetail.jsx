@@ -110,12 +110,13 @@ function GroupDetail({ productDetail }) {
           </Stack>
           <Typography>{description}</Typography>
           {!btnAddToCart ? (
-            <Stack direction={"row"} spacing={2}>
-              <Button type="submit">Add to cart</Button>
-              <Button type="button">Buy now</Button>
-            </Stack>
+            <div className="xl:w-[30%] w-full">
+              <Button type="submit" className="w-full">
+                Add to cart
+              </Button>
+            </div>
           ) : (
-            <Button disabled className="w-[30%]">
+            <Button disabled className="xl:w-[30%]">
               <Stack direction={"row"} alignItems={"center"} spacing={2}>
                 <Typography className={"animate-spin"}>
                   <AiOutlineLoading3Quarters />
