@@ -3,6 +3,7 @@ import SelectClickTrue from "./logo-click/SelectClickTrue";
 import SelectClickFalse from "./logo-click/SelectClickFalse";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "@/feautures/user/UserSlice";
+import useAuth from "@/hooks/useAuth";
 
 function MainHeader() {
   const [logoClick, setLogoClick] = useState(false);
@@ -10,9 +11,17 @@ function MainHeader() {
   const dispatch = useDispatch();
   const { user, success } = useSelector((state) => state.user);
 
+  const auth = useAuth();
+  console.log(auth);
+  const authenticated = auth.isAuthenticated;
+
   const userName = user?.name;
-  const id = user?._id;
   const avatarUrl = user?.avatarUrl;
+  let id = user?._id;
+
+  if (authenticated === false) {
+    id = null;
+  }
 
   const hanldeClick = () => {
     setLogoClick(!logoClick);
@@ -48,6 +57,7 @@ function MainHeader() {
           userName={userName}
           id={id}
           avatarUrl={avatarUrl}
+          authenticated={authenticated}
         />
       )}
     </div>
