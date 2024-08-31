@@ -14,12 +14,12 @@ export function CardProduct({
     <Card className={className}>
       {src && <img className={imgStyles} src={src} />}
       {nameCard && (
-        <CardTitle className="text-center lg:text-xl text-md">
+        <CardTitle className="text-center lg:text-2xl text-xl">
           {nameCard}
         </CardTitle>
       )}
       {description && (
-        <CardDescription className="text-center text-[12px] text-pretty uppercase">
+        <CardDescription className="text-center text-sm text-pretty uppercase tracking-tight">
           {description}
         </CardDescription>
       )}

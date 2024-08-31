@@ -11,7 +11,7 @@ export default function OrderSummary({ data, button }) {
   const quantity = data?.map((cartItem) => cartItem.quantity);
   const totalQuantity = quantity?.reduce((acc, cur) => acc + cur);
 
-  const vatTax = (totalPrices * 10) / 100 ;
+  const vatTax = Math.ceil((totalPrices * 10) / 100);
 
   const totalAfterVAT = totalPrices + vatTax;
 

@@ -1,27 +1,38 @@
-import { useState } from "react";
-import useAuth from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
 import SelectClickTrue from "./logo-click/SelectClickTrue";
 import SelectClickFalse from "./logo-click/SelectClickFalse";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser } from "@/feautures/user/UserSlice";
+import useAuth from "@/hooks/useAuth";
 
 function MainHeader() {
-  const auth = useAuth();
   const [logoClick, setLogoClick] = useState(false);
 
-  const userName = auth?.user?.name;
-  const avatarUrl = auth?.user?.avatarUrl;
-  // const { logout } = auth;
+  const dispatch = useDispatch();
+  const { user, success } = useSelector((state) => state.user);
+
+  const auth = useAuth();
+  console.log(auth);
+  const authenticated = auth.isAuthenticated;
+
+  const userName = user?.name;
+  const avatarUrl = user?.avatarUrl;
+  let id = user?._id;
+
+  if (authenticated === false) {
+    id = null;
+  }
 
   const hanldeClick = () => {
     setLogoClick(!logoClick);
   };
 
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch, success]);
+
   const logo = (
-    <img
-      width="58px"
-      height="58px"
-      src="../../public/nav/favicon.ico"
-      alt="hippopotamus"
-    />
+    <img width="58px" height="58px" src="/favicon.ico" alt="hippopotamus" />
   );
 
   return (
@@ -44,7 +55,9 @@ function MainHeader() {
           hanldeClick={hanldeClick}
           logo={logo}
           userName={userName}
+          id={id}
           avatarUrl={avatarUrl}
+          authenticated={authenticated}
         />
       )}
     </div>

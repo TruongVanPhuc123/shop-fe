@@ -5,9 +5,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Divider } from "@mui/material";
-
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+
 import {
   deleteProduct,
   deleteProductVariants,
@@ -23,6 +23,7 @@ import FormCreateProductVariants from "./create-variants/FormCreateProductVarian
 export default function Product() {
   const { products, success } = useSelector((state) => state.product);
   const data = products?.products;
+  const totalPages = products?.totalPages;
   const dispatch = useDispatch();
 
   const [dataUpdateProduct, setdataUpdateProduct] = useState({});
@@ -31,7 +32,7 @@ export default function Product() {
   const [value, setValue] = useState("");
   const [search, setSearch] = useState("All");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit] = useState(5);
 
   const handleBtnValue = (body) => {
     const { value, data, type } = body;
@@ -57,7 +58,10 @@ export default function Product() {
           data={data}
           handleBtnValue={handleBtnValue}
           setProductItem={setProductItem}
-          productItem={productItem}
+          totalPages={totalPages}
+          page={page}
+          setPage={setPage}
+          setSearch={setSearch}
         />
       ),
     },
@@ -89,7 +93,7 @@ export default function Product() {
 
   useEffect(() => {
     dispatch(getProducts({ page, limit, search }));
-  }, [dispatch, success, page, limit, search]);
+  }, [dispatch, value, success, page, limit, search]);
 
   return (
     <Accordion type="single" collapsible value={value} onValueChange={setValue}>

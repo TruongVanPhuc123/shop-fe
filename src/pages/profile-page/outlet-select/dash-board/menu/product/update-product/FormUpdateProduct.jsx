@@ -21,20 +21,10 @@ const schema = yup.object({
 
 export default function FormUpdateProduct({ dataUpdateProduct }) {
   const [btnUpdateProduct, setBtnUpdateProduct] = useState(false);
-
   const dispatch = useDispatch();
-
-  const id = dataUpdateProduct?._id || null;
-
   const fileInput = useRef();
 
-  const handleFile = () => {
-    const file = fileInput.current.files[0];
-    if (file) {
-      setValue("image", file);
-    }
-  };
-
+  const id = dataUpdateProduct?._id || null;
   const {
     register,
     reset,
@@ -51,6 +41,13 @@ export default function FormUpdateProduct({ dataUpdateProduct }) {
       description: dataUpdateProduct?.description || "",
     },
   });
+
+  const handleFile = () => {
+    const file = fileInput.current.files[0];
+    if (file) {
+      setValue("image", file);
+    }
+  };
 
   const onSubmit = (body) => {
     setBtnUpdateProduct(true);
@@ -110,7 +107,7 @@ export default function FormUpdateProduct({ dataUpdateProduct }) {
           </Stack>
         </Stack>
         <Stack spacing={2}>
-          <Stack>
+          <Stack className="pb-2">
             <Typography className={"font-bold text-"}>
               Description product
             </Typography>

@@ -36,7 +36,7 @@ export function Cart() {
       <Typography className={"text-2xl font-bold"}>Shopping Cart</Typography>
       {count > 0 ? (
         <div className="items-start w-full gap-10 md:flex">
-          <div className="md:w-[60%]">
+          <div className="md:w-[60%] h-[500px] overflow-scroll">
             <CartItem data={data} handleActions={handleActions} />
           </div>
           <div className="md:w-[40%]">
@@ -51,7 +51,7 @@ export function Cart() {
               className="relative mb-4 h-60 w-60 text-muted-foreground"
             >
               <img
-                src="../../public/nav/hippo-empty-cart.png"
+                src="/hippo-empty-cart.png"
                 alt="empty shopping cart hippo"
               />
             </div>

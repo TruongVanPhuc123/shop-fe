@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import {
   Select,
   SelectContent,
@@ -20,9 +18,9 @@ const arrayStatus = [
 ];
 
 export function SelectStatusOrderProfile({ name, setStatusOrder }) {
-  const handleOnValueChange = (status) => {
-    if (status) {
-      setStatusOrder(status);
+  const handleOnValueChange = (element) => {
+    if (element) {
+      setStatusOrder(element);
     }
   };
 
@@ -35,7 +33,7 @@ export function SelectStatusOrderProfile({ name, setStatusOrder }) {
         <SelectGroup>
           {arrayStatus.map((element, index) => (
             <SelectItem key={index} value={element.status}>
-              {`${element.status} `}
+              {element.status}
             </SelectItem>
           ))}
         </SelectGroup>

@@ -11,57 +11,74 @@ import {
 
 import {
   deleteOrder,
+  deleteOrderItem,
   getOrdersByCurrentUserId,
 } from "@/feautures/order/OrderSlice";
-import useAuth from "@/hooks/useAuth";
 import { Box, IconButton, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { SelectStatusOrderProfile } from "@/components/select/SelectStatusOrderProfile";
 
 import { IoMdClose } from "react-icons/io";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { MdOutlineNavigateBefore } from "react-icons/md";
-import { SelectStatusOrderProfile } from "@/components/select/SelectStatusOrderProfile";
+import { DialogOrder } from "@/components/DialogOrder";
 
 export default function OrderProfile() {
-  const { orders, success } = useSelector((state) => state.order);
+  const { ordersByCurrentUserId, success } = useSelector(
+    (state) => state.order
+  );
   const dispatch = useDispatch();
 
+  const dataOrders = ordersByCurrentUserId?.orders;
+  const totalPages = ordersByCurrentUserId?.totalPages;
+
+  // const [handlePage, setHandlePage] = useState(false);
   const [btnDeleteOrder, setBtnDeleteOrder] = useState(false);
   const [statusOrder, setStatusOrder] = useState("All");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
-
-  const { user } = useAuth();
-  const id = user?._id;
-
-  const dataOrders = orders?.orders;
+  const [limit] = useState(5);
 
   const handlePrevPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
+    setTimeout(() => {
+      if (page > 1) {
+        setPage(page - 1);
+      }
+    }, 1000);
   };
 
   const handleNextPage = () => {
-    setPage(page + 1);
+    setTimeout(() => {
+      if (page < totalPages) {
+        setPage(page + 1);
+      }
+    }, 1000);
   };
 
   const handleDeleteOrder = (data) => {
     setBtnDeleteOrder(true);
-    dispatch(
-      deleteOrder({
-        orderId: data.orderId,
-        setBtnDeleteOrder,
-      })
-    );
+    if (data.type === "order") {
+      dispatch(
+        deleteOrder({
+          orderId: data.orderId,
+          setBtnDeleteOrder,
+        })
+      );
+    } else {
+      dispatch(
+        deleteOrderItem({
+          orderItemId: data.orderItemId,
+          setBtnDeleteOrder,
+        })
+      );
+    }
   };
 
   useEffect(() => {
-    dispatch(getOrdersByCurrentUserId({ id, page, limit, statusOrder }));
-  }, [dispatch, id, success, page, limit, statusOrder]);
+    dispatch(getOrdersByCurrentUserId({ page, limit, statusOrder }));
+  }, [dispatch, success, page, limit, statusOrder]);
 
   return (
     <Table>
@@ -87,10 +104,14 @@ export default function OrderProfile() {
               <MdOutlineNavigateNext />
             </Button>
           </Stack>
+          <Box className="font-medium">
+            <Typography>totalPages: {totalPages}</Typography>
+          </Box>
         </Stack>
       </TableCaption>
       <TableHeader>
         <TableRow>
+          <TableHead className="w-[10px]">Number</TableHead>
           <TableHead>Image</TableHead>
           <TableHead>Name</TableHead>
           <TableHead>Status</TableHead>
@@ -105,14 +126,17 @@ export default function OrderProfile() {
           dataOrders?.map((order, index) => (
             <TableRow key={index}>
               <TableCell>
+                <Typography>{index + 1}</Typography>
+              </TableCell>
+              <TableCell>
                 <img
                   width={"50px"}
-                  src={order?.orderItems[0]?.productItemId?.productId?.image}
+                  src={order.orderItems[0].productItemId.productId.image}
                   alt=""
                 />
               </TableCell>
               <TableCell>
-                {order?.orderItems[0]?.productItemId?.productId?.name}
+                {order.orderItems[0].productItemId.productId.name}
               </TableCell>
               <TableCell>
                 <Typography
@@ -127,40 +151,48 @@ export default function OrderProfile() {
               </TableCell>
               <TableCell>{order.orderItems[0].quantity}</TableCell>
               <TableCell>
-                <Stack direction={"row"} spacing={1}>
-                  <Typography>
-                    Size: {order.orderItems[0].productItemId.size}
-                  </Typography>
-                  <Typography>
-                    Color: {order.orderItems[0].productItemId.color}
-                  </Typography>
-                </Stack>
+                <Typography>
+                  Size: {order.orderItems[0].productItemId.size}
+                </Typography>
+                <Typography>
+                  Color: {order.orderItems[0].productItemId.color}
+                </Typography>
               </TableCell>
-              <TableCell>
-                {order.orderItems[0].productItemId.price *
-                  order.orderItems[0].quantity}
-              </TableCell>
+              <TableCell>{order.orderItems[0].productItemId.price}</TableCell>
               <TableCell>
                 {order.status.includes("accepted") ? (
                   <></>
                 ) : (
-                  <IconButton
-                    onClick={() =>
-                      handleDeleteOrder({
-                        orderId: order._id,
-                      })
-                    }
-                  >
-                    {!btnDeleteOrder ? (
-                      <Typography>
-                        <IoMdClose />
-                      </Typography>
+                  <>
+                    {order.orderItems.length > 1 ? (
+                      <DialogOrder
+                        title={"Total Orders"}
+                        description={"You can delete order at here !"}
+                        data={order}
+                        handleDeleteOrder={handleDeleteOrder}
+                        btnDeleteOrder={btnDeleteOrder}
+                      />
                     ) : (
-                      <Typography className={"animate-spin"}>
-                        <AiOutlineLoading3Quarters />
-                      </Typography>
+                      <IconButton
+                        onClick={() =>
+                          handleDeleteOrder({
+                            type: "order",
+                            orderId: order._id,
+                          })
+                        }
+                      >
+                        {!btnDeleteOrder ? (
+                          <Typography>
+                            <IoMdClose />
+                          </Typography>
+                        ) : (
+                          <Typography className={"animate-spin"}>
+                            <AiOutlineLoading3Quarters />
+                          </Typography>
+                        )}
+                      </IconButton>
                     )}
-                  </IconButton>
+                  </>
                 )}
               </TableCell>
             </TableRow>

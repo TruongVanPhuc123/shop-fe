@@ -1,7 +1,5 @@
-import DropMenu from "@/components/DropMenu";
+import DropMenu from "@/components/DropMenuAfterLogin";
 import { IconButton } from "@mui/material";
-import { HiMiniShoppingCart } from "react-icons/hi2";
-import { Link } from "react-router-dom";
 
 export default function SelectClickTrue({
   hanldeClick,

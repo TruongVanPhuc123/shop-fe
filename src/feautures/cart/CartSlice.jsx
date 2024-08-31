@@ -23,6 +23,8 @@ export const createAndResetCartItems = createAsyncThunk(
         Swal.fire({
           title: res.message,
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
         });
         setBtnAddToCart(false);
       })
@@ -49,6 +51,8 @@ export const updateCartItem = createAsyncThunk(
           title: "Update item success !",
           text: response.message,
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
         });
         action(false);
       })
@@ -70,10 +74,12 @@ export const deleteCartItem = createAsyncThunk(
   async ({ id }) => {
     await apiService
       .delete(`/cartItems/${id}`)
-      .then((res) => {
+      .then(() => {
         Swal.fire({
           title: "Remove item success !",
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500,
         });
       })
       .catch((err) => {

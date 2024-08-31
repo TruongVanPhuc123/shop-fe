@@ -1,18 +1,18 @@
-import { SelectAttribute } from "@/components/select/SelectAttribute";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Stack } from "@mui/material";
+import Typography from "@/components/Typography";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Typography from "@/components/Typography";
+import SelectProduct from "@/components/select/SelectProduct";
 
 const schema = yup.object({
   search: yup.string().required("Type your search"),
 });
 
-const defaultValues = { search: "" };
+const select = ["Prices gradually increase", "Prices gradually decrease"];
 
 function FilterProduct({ onSubmit, data }) {
   const {
@@ -21,26 +21,18 @@ function FilterProduct({ onSubmit, data }) {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-    defaultValues,
+    defaultValues: {
+      search: "",
+    },
   });
-    
-  const categories = data?.map(product => product.category);
-  const brands = data?.map(product => product.brand);
-  const sizes = ["XS", "XL", "L","M"];
-
   return (
     <div className="w-full lg:flex justify-between gap-10">
       <div className="mb-5 flex gap-2 justify-between ">
-        <SelectAttribute name="Brands" />
-        <SelectAttribute name="Size" />
-        <SelectAttribute name="Categories" />
+        <Typography>Sort by: </Typography>{" "}
+        <SelectProduct name="Filter Product" array={select} />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack
-          direction={"row"}
-          spacing={1}
-          className="w-full sticky top-0 right-0"
-        >
+        <Stack direction={"row"} spacing={1}>
           <Input placeholder="Search..." {...register("search")} />
           {errors && (
             <Typography className="text-red-500">

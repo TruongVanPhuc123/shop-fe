@@ -30,11 +30,6 @@ export default function ProfileSelect() {
     logout(() => {
       navigate("/");
     });
-    Swal.fire({
-      title: "Logout success",
-      text: "See you later!",
-      icon: "success",
-    });
   };
 
   useEffect(() => {

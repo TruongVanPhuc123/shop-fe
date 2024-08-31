@@ -12,10 +12,11 @@ function index() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(8);
   const [search, setSearch] = useState("All");
 
   const data = products.products;
+  const totalPages = products.totalPages;
 
   const handleDetail = (id) => {
     navigate(`/detail/${id}`);
@@ -28,7 +29,9 @@ function index() {
   };
 
   const handleNextPage = () => {
-    setPage(page + 1);
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
   };
 
   const onSubmit = (data) => {
@@ -43,18 +46,19 @@ function index() {
 
   return (
     <Stack justifyContent={"center"} alignItems={"center"} className="my-24">
-      <Stack spacing={5} className="w-[80%]">
+      <Stack spacing={5} className="w-[80%] relative">
         <FilterProduct onSubmit={onSubmit} data={data} />
         {data ? (
           <Products
             data={data}
             handleDetail={handleDetail}
             page={page}
+            totalPages={totalPages}
             handlePrevPage={handlePrevPage}
             handleNextPage={handleNextPage}
           />
         ) : (
-          <Stack className="w-full relative top-20">
+          <Stack className="w-full relative ">
             <LoadingScreen />
           </Stack>
         )}

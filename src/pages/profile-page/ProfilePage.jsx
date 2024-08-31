@@ -18,7 +18,7 @@ export default function ProfilePage() {
             </Typography>
           </Stack>
           <div className="md:flex gap-10 w-full">
-            <div className="md:w-[20%]">
+            <div className="md:w-[30%]">
               <ProfileSelect />
             </div>
             <div className="w-full mb-10">

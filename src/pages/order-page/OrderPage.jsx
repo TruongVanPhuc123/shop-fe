@@ -7,8 +7,7 @@ import Payment from "./Payment";
 import { getOrders } from "@/feautures/order/OrderSlice";
 
 function OrderPage() {
-  const { cartItems } = useSelector((state) => state.cart);
-  const { orderIdCreated } = useSelector((state) => state.order);
+  const { cartItems, success } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
   const dataCartItems = cartItems?.cartItems;
@@ -16,7 +15,7 @@ function OrderPage() {
   useEffect(() => {
     dispatch(getCartItems());
     dispatch(getOrders());
-  }, [dispatch]);
+  }, [dispatch, success]);
 
   return (
     <Stack className="w-full my-24" alignItems={"center"} width={"100%"}>
@@ -35,10 +34,7 @@ function OrderPage() {
           alignItems={"start"}
           spacing={2}
         >
-          <Payment
-            dataCartItems={dataCartItems}
-            orderIdCreated={orderIdCreated}
-          />
+          <Payment dataCartItems={dataCartItems} />
         </Stack>
       </div>
     </Stack>

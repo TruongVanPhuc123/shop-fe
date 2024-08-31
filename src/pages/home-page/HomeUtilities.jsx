@@ -1,4 +1,5 @@
 import ImageBox from "@/components/ImageBox";
+import Typography from "@/components/Typography";
 
 function HomeUtilities() {
   return (
@@ -9,54 +10,54 @@ function HomeUtilities() {
             <ImageBox
               divStyles={"flex flex-col items-center text-5xl  gap-3"}
               imgStyles={"w-[20%]"}
-              src={"../../public/body/Delivery.png"}
+              src={"/Delivery.png"}
               alt={""}
             >
-              <p className="text-black lg:text-2xl text-xl uppercase">
+              <Typography className="text-black lg:text-2xl text-xl uppercase">
                 Free Ship
-              </p>
-              <p className="text-gray-400 lg:text-xl  text-[12px] w-36 text-pretty text-center">
+              </Typography>
+              <Typography className="text-gray-400 lg:text-xl text-[12px] w-36 text-pretty text-center">
                 Free worldwire shiping on all orders
-              </p>
+              </Typography>
             </ImageBox>
             <ImageBox
               divStyles={"flex flex-col items-center text-5xl gap-3"}
               imgStyles={"w-[20%]"}
-              src={"../../public/body/Wishlist.png"}
+              src={"/Wishlist.png"}
               alt={""}
             >
-              <p className="text-black lg:text-2xl text-xl  uppercase">
+              <Typography className="text-black lg:text-2xl text-xl uppercase">
                 Pretty Box
-              </p>
-              <p className="text-gray-400 lg:text-xl  text-[12px] w-36 text-pretty text-center">
+              </Typography>
+              <Typography className="text-gray-400 lg:text-xl text-[12px] w-36 text-pretty text-center">
                 Free worldwire shiping on all orders
-              </p>
+              </Typography>
             </ImageBox>
             <ImageBox
               divStyles={"flex flex-col items-center text-5xl gap-3"}
               imgStyles={"w-[20%]"}
-              src={"../../public/body/Card.png"}
+              src={"/Card.png"}
               alt={""}
             >
-              <p className="text-black lg:text-2xl text-xl  uppercase">
+              <Typography className="text-black lg:text-2xl text-xl uppercase">
                 Auto Card
-              </p>
-              <p className="text-gray-400 lg:text-xl  text-[12px] w-36 text-pretty text-center">
+              </Typography>
+              <Typography className="text-gray-400 lg:text-xl text-[12px] w-36 text-pretty text-center">
                 Free worldwire shiping on all orders
-              </p>
+              </Typography>
             </ImageBox>
             <ImageBox
               divStyles={"flex flex-col items-center text-5xl gap-3"}
               imgStyles={"w-[20%]"}
-              src={"../../public/body/Bill.png"}
+              src={"/Bill.png"}
               alt={""}
             >
-              <p className="text-black lg:text-2xl text-xl  uppercase">
+              <Typography className="text-black lg:text-2xl text-xl uppercase">
                 Fresh Bill
-              </p>
-              <p className="text-gray-400 lg:text-xl  text-[12px] w-36 text-pretty text-center">
+              </Typography>
+              <Typography className="text-gray-400 lg:text-xl text-[12px] w-36 text-pretty text-center">
                 Free worldwire shiping on all orders
-              </p>
+              </Typography>
             </ImageBox>
           </div>
         </div>

@@ -1,11 +1,10 @@
 import apiService from "@/app/apiService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import Swal from "sweetalert2";
 
 const initialState = {
   orders: [],
-  orderIdCreated: null,
+  ordersByCurrentUserId: [],
   success: false,
   status: "success",
 };
@@ -47,25 +46,28 @@ const checKPayment = async (price, id, navigate) => {
     } catch (error) {
       Swal.fire({
         title: "Error Payment",
-        text: error.message,
-        icon: "error",
-      });
-    }
-  }
-};
 
 export const getOrders = createAsyncThunk("getOrders", async () => {
   const response = await apiService.get(`/orders`);
   return response.data;
 });
+);
 
 export const getOrdersByCurrentUserId = createAsyncThunk(
   "getOrdersByCurrentUserId",
-  async ({ id, page, limit, statusOrder }) => {
-    const response = await apiService.get(
-      `/orders/${id}?page=${page}&limit=${limit}&status=${statusOrder}`
-    );
-    return response.data;
+  async ({ page, limit, statusOrder }) => {
+    try {
+      const response = await apiService.get(
+        `/orders/me?status=${statusOrder}&page=${page}&limit=${limit}`
+      );
+      return response.data;
+    } catch (error) {
+      Swal.fire({
+        title: "Get orders failed !",
+        text: error.message,
+        icon: "error",
+      });
+    }
   }
 );
 
@@ -74,12 +76,17 @@ export const createOrder = createAsyncThunk(
   async ({ body, navigate }) => {
     try {
       const response = await apiService.post(`/orders`, body);
-      setTimeout(() => {
         setInterval(() => {
           checKPayment(body.totalPrices, response.data._id, navigate);
         }, 1000);
       }, 5000);
-      return response.data;
+      navigate("/");
+
+      Swal.fire({
+        title: "Success Payment",
+        text: "Thanks for your order",
+        icon: "success",
+      });
     } catch (error) {
       Swal.fire({
         title: "Error creating order",
@@ -114,6 +121,32 @@ export const deleteOrder = createAsyncThunk(
   }
 );
 
+export const deleteOrderItem = createAsyncThunk(
+  "deleteOrderItem",
+  async ({ orderItemId, setBtnDeleteOrder }) => {
+    await apiService
+      .delete(`/orderItems/${orderItemId}`)
+      .then(() => {
+        Swal.fire({
+          title: "Delete Order Item",
+          text: "Order item deleted",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2500,
+        });
+        setBtnDeleteOrder(false);
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Delete Order Item",
+          text: error.message,
+          icon: "error",
+        });
+        setBtnDeleteOrder(false);
+      });
+  }
+);
+
 export const OrderSlice = createSlice({
   name: "order",
   initialState,
@@ -136,7 +169,7 @@ export const OrderSlice = createSlice({
       })
       .addCase(getOrdersByCurrentUserId.fulfilled, (state, action) => {
         state.status = "success";
-        state.orders = action.payload;
+        state.ordersByCurrentUserId = action.payload;
         state.success = action.payload.success;
       })
       .addCase(getOrdersByCurrentUserId.rejected, (state) => {
@@ -148,7 +181,7 @@ export const OrderSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.status = "success";
-        state.orderIdCreated = action.payload._id;
+        state.success = action.payload.success;
       })
       .addCase(createOrder.rejected, (state) => {
         state.status = "rejected";
@@ -162,6 +195,17 @@ export const OrderSlice = createSlice({
         state.success = true;
       })
       .addCase(deleteOrder.rejected, (state) => {
+        state.status = "rejected";
+      });
+    builder
+      .addCase(deleteOrderItem.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(deleteOrderItem.fulfilled, (state) => {
+        state.status = "success";
+        state.success = true;
+      })
+      .addCase(deleteOrderItem.rejected, (state) => {
         state.status = "rejected";
       });
   },
