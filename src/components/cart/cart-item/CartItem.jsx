@@ -40,8 +40,6 @@ export default function CartItem({ data, handleActions }) {
     });
   };
 
-  console.log(data);
-
   return (
     <>
       <Divider />

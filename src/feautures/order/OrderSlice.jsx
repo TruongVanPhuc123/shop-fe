@@ -1,5 +1,6 @@
 import apiService from "@/app/apiService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import Swal from "sweetalert2";
 
 const initialState = {
@@ -7,6 +8,7 @@ const initialState = {
   ordersByCurrentUserId: [],
   success: false,
   status: "success",
+  orderIdCreated: "",
 };
 
 let isFetching = false;
@@ -26,13 +28,11 @@ const checKPayment = async (price, id, navigate) => {
 
       if (lastPrice >= price && lastContent.includes(id)) {
         isFetching = true;
+
         //update order status
         const body = {};
         body.status = "accepted";
         await apiService.put(`/orders/${id}`, body);
-
-        //delete carItems after status is a accepted
-        // await apiService.delete(`/cartItems/${id}`);
 
         navigate("/");
         Swal.fire({
@@ -46,12 +46,15 @@ const checKPayment = async (price, id, navigate) => {
     } catch (error) {
       Swal.fire({
         title: "Error Payment",
+      });
+    }
+  }
+};
 
 export const getOrders = createAsyncThunk("getOrders", async () => {
   const response = await apiService.get(`/orders`);
   return response.data;
 });
-);
 
 export const getOrdersByCurrentUserId = createAsyncThunk(
   "getOrdersByCurrentUserId",
@@ -76,17 +79,10 @@ export const createOrder = createAsyncThunk(
   async ({ body, navigate }) => {
     try {
       const response = await apiService.post(`/orders`, body);
-        setInterval(() => {
-          checKPayment(body.totalPrices, response.data._id, navigate);
-        }, 1000);
-      }, 5000);
-      navigate("/");
-
-      Swal.fire({
-        title: "Success Payment",
-        text: "Thanks for your order",
-        icon: "success",
-      });
+      setInterval(() => {
+        checKPayment(body.totalPrices, response.data._id, navigate);
+      }, 2000);
+      return response;
     } catch (error) {
       Swal.fire({
         title: "Error creating order",
@@ -181,6 +177,7 @@ export const OrderSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.status = "success";
+        state.orderIdCreated = action.payload.data._id;
         state.success = action.payload.success;
       })
       .addCase(createOrder.rejected, (state) => {

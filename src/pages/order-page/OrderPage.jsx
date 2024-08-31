@@ -8,6 +8,7 @@ import { getOrders } from "@/feautures/order/OrderSlice";
 
 function OrderPage() {
   const { cartItems, success } = useSelector((state) => state.cart);
+  const { orderIdCreated } = useSelector((state) => state.order);
   const dispatch = useDispatch();
 
   const dataCartItems = cartItems?.cartItems;
@@ -34,7 +35,10 @@ function OrderPage() {
           alignItems={"start"}
           spacing={2}
         >
-          <Payment dataCartItems={dataCartItems} />
+          <Payment
+            dataCartItems={dataCartItems}
+            orderIdCreated={orderIdCreated}
+          />
         </Stack>
       </div>
     </Stack>

@@ -12,7 +12,6 @@ function MainHeader() {
   const { user, success } = useSelector((state) => state.user);
 
   const auth = useAuth();
-  console.log(auth);
   const authenticated = auth.isAuthenticated;
 
   const userName = user?.name;
