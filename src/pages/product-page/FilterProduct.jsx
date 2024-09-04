@@ -12,9 +12,7 @@ const schema = yup.object({
   search: yup.string().required("Type your search"),
 });
 
-const select = ["Prices gradually increase", "Prices gradually decrease"];
-
-function FilterProduct({ onSubmit, data }) {
+function FilterProduct({ onSubmit, setSort }) {
   const {
     register,
     handleSubmit,
@@ -27,13 +25,15 @@ function FilterProduct({ onSubmit, data }) {
   });
   return (
     <div className="w-full lg:flex justify-between gap-10">
-      <div className="mb-5 flex gap-2 justify-between ">
-        <Typography>Sort by: </Typography>{" "}
-        <SelectProduct name="Filter Product" array={select} />
+      <div className="mb-5 flex gap-2 justify-between items-center">
+        <Typography>Sort by: </Typography> <SelectProduct setSort={setSort} />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack direction={"row"} spacing={1}>
-          <Input placeholder="Search..." {...register("search")} />
+          <Input
+            placeholder="Type 'All' show all product"
+            {...register("search")}
+          />
           {errors && (
             <Typography className="text-red-500">
               {errors.search?.message}

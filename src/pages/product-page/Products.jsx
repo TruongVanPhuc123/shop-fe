@@ -19,11 +19,12 @@ function Products({
         {data.map((element, index) => (
           <CardProduct
             key={index}
-            className="w-[auto] flex flex-col items-center gap-5 justify-between"
+            className="w-[auto] flex flex-col items-center gap-5 justify-between text-center"
             src={`${element.image}`}
             nameCard={element.name}
-            imgStyles={"w-[70%]"}
+            imgStyles={"w-[100%] rounded-xl"}
             description={`${element.brand} - ${element.category}`}
+            price={`${element.productItems[0].price} - VNĐ`}
             button={true}
             handleDetail={() => handleDetail(element._id)}
           />

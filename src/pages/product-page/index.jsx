@@ -14,6 +14,8 @@ function index() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(8);
   const [search, setSearch] = useState("All");
+  const [sort, setSort] = useState(null);
+  console.log(sort);
 
   const data = products.products;
   const totalPages = products.totalPages;
@@ -41,13 +43,13 @@ function index() {
   };
 
   useEffect(() => {
-    dispatch(getProducts({ page, limit, search }));
-  }, [dispatch, page, limit, search]);
+    dispatch(getProducts({ page, limit, search, sort }));
+  }, [dispatch, page, limit, search, sort]);
 
   return (
     <Stack justifyContent={"center"} alignItems={"center"} className="my-24">
       <Stack spacing={5} className="w-[80%] relative">
-        <FilterProduct onSubmit={onSubmit} data={data} />
+        <FilterProduct onSubmit={onSubmit} setSort={setSort} />
         {data ? (
           <Products
             data={data}

@@ -14,11 +14,14 @@ const initialState = {
 
 export const getProducts = createAsyncThunk(
   "getProducts",
-  async ({ page, limit, search }) => {
+  async ({ page, limit, search, sort }) => {
     try {
-      const response = await apiService.get(
-        `/products?search=${search}&page=${page}&limit=${limit}`
-      );
+      let url = `/products?search=${search}&page=${page}&limit=${limit}`;
+
+      if (sort !== null) {
+        url += `&sort=${sort}`;
+      }
+      const response = await apiService.get(url);
       return response.data;
     } catch (error) {
       Swal.fire({
