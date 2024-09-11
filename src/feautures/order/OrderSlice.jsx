@@ -23,10 +23,10 @@ const checKPayment = async (price, id, navigate) => {
       );
       const data = res.data;
       const lastData = data.data[data.data.length - 1];
-      const lastPrice = lastData["Giá trị"];
+      // const lastPrice = lastData["Giá trị"];
       const lastContent = lastData["Mô tả"];
 
-      if (lastPrice >= price && lastContent.includes(id)) {
+      if (lastContent.includes(id)) {
         isFetching = true;
 
         //update order status

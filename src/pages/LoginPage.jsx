@@ -56,7 +56,7 @@ function LoginPage() {
         justifyContent={"center"}
         alignItems={"center"}
         spacing={3}
-        className="xl:w-[22%] w-[80%]"
+        className="xl:w-[25%] w-[80%]"
       >
         <Box>
           {" "}
