@@ -46,6 +46,7 @@ const checKPayment = async (price, id, navigate) => {
     } catch (error) {
       Swal.fire({
         title: "Error Payment",
+        text: error.message,
       });
     }
   }
@@ -87,7 +88,10 @@ export const createOrder = createAsyncThunk(
       Swal.fire({
         title: "Error creating order",
         text: error.message,
-        icon: "error",
+        icon: "warning",
+      }).then(() => {
+        window.open("/profile");
+        window.close("/order");
       });
     }
   }

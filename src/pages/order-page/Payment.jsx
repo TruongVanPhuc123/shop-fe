@@ -1,21 +1,18 @@
 import Typography from "@/components/Typography";
 import { Button } from "@/components/ui/button";
 import { createOrder } from "@/feautures/order/OrderSlice";
-import useAuth from "@/hooks/useAuth";
 import { Box, Divider, Stack } from "@mui/material";
 import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export default function Payment({ dataCartItems, orderIdCreated }) {
+export default function Payment({ dataCartItems, orderIdCreated, user }) {
   const [btnOrder, setBtnOrder] = useState(false);
 
   const dispatch = useDispatch();
-  const auth = useAuth();
   const navigate = useNavigate();
 
-  const { user } = auth;
   const { avatarUrl, name, email, address, phoneNumber } = user;
 
   const totalPriceItem = dataCartItems?.map(
@@ -80,7 +77,7 @@ export default function Payment({ dataCartItems, orderIdCreated }) {
         </Stack>
         <Divider />
       </Box>
-      {!btnOrder ? (
+      {!btnOrder && !orderIdCreated ? (
         <Button onClick={handleOrder} className="w-full">
           Order
         </Button>
@@ -94,7 +91,7 @@ export default function Payment({ dataCartItems, orderIdCreated }) {
           </Stack>
         </Button>
       )}
-      {btnOrder && (
+      {btnOrder && orderIdCreated && (
         <>
           {" "}
           <Typography className="font-medium">Payment</Typography>

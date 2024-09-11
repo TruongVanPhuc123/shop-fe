@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Summary from "./Summary";
 import Payment from "./Payment";
 import { getOrders } from "@/feautures/order/OrderSlice";
+import { getCurrentUser } from "@/feautures/user/UserSlice";
 
 function OrderPage() {
   const { cartItems, success } = useSelector((state) => state.cart);
   const { orderIdCreated } = useSelector((state) => state.order);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const dataCartItems = cartItems?.cartItems;
@@ -16,6 +18,7 @@ function OrderPage() {
   useEffect(() => {
     dispatch(getCartItems());
     dispatch(getOrders());
+    dispatch(getCurrentUser());
   }, [dispatch, success]);
 
   return (
@@ -38,6 +41,7 @@ function OrderPage() {
           <Payment
             dataCartItems={dataCartItems}
             orderIdCreated={orderIdCreated}
+            user={user}
           />
         </Stack>
       </div>
