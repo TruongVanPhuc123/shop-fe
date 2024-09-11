@@ -19,7 +19,8 @@
 1. User can view their order status.
 2. User can view ordered products.
 3. User can view ordered prices.
-4. User can payment online by bank transfer through Vietqr
+4. User can payment online by bank transfer through Vietqr.
+5. User can delete order with status `pending`.
    
 --- Profile ---
 1. User can view personal information (email, phone number, ...).
