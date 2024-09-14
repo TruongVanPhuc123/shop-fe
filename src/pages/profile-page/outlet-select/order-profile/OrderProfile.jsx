@@ -131,12 +131,12 @@ export default function OrderProfile() {
               <TableCell>
                 <img
                   width={"50px"}
-                  src={order.orderItems[0].productItemId.productId.image}
+                  src={order.orderItems[0].productItemId?.productId.image || ""}
                   alt=""
                 />
               </TableCell>
               <TableCell>
-                {order.orderItems[0].productItemId.productId.name}
+                {order.orderItems[0].productItemId?.productId.name || ""}
               </TableCell>
               <TableCell>
                 <Typography
@@ -152,13 +152,15 @@ export default function OrderProfile() {
               <TableCell>{order.orderItems[0].quantity}</TableCell>
               <TableCell>
                 <Typography>
-                  Size: {order.orderItems[0].productItemId.size}
+                  Size: {order.orderItems[0].productItemId?.size || ""}
                 </Typography>
                 <Typography>
-                  Color: {order.orderItems[0].productItemId.color}
+                  Color: {order.orderItems[0].productItemId?.color || ""}
                 </Typography>
               </TableCell>
-              <TableCell>{order.orderItems[0].productItemId.price}</TableCell>
+              <TableCell>
+                {order.orderItems[0].productItemId?.price || 0}
+              </TableCell>
               <TableCell>
                 {order.status.includes("accepted") ? (
                   <></>
