@@ -65,7 +65,7 @@ function GroupDetail({ productDetail }) {
       alignItems={"center"}
       className="w-full h-full"
     >
-      <Typography className="text-3xl font-bold">{name}</Typography>
+      <Typography className="text-3xl font-bold text-center">{name}</Typography>
       <Stack direction={"row"} spacing={2}>
         <Typography className="text-xl font-medium">
           Category: <span className="text-gray-500">{category}</span>
