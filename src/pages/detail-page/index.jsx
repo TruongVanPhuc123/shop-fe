@@ -21,16 +21,15 @@ function index() {
 
   return (
     <Stack
-      direction={"row"}
       alignItems={"center"}
       justifyContent={"center"}
       className="w-full my-10"
     >
-      <div className="w-[80%] h-auto xl:flex xl:items-center gap-10  ">
+      <div className="xl:w-[50%] xl:flex xl:items-center gap-10">
         <Box className="xl:w-[50%]">
           <GroupImage productDetail={productDetail} />
         </Box>
-        <Box className="w-50% mt-2">
+        <Box className="xl:w-[50%] mt-2">
           <GroupDetail productDetail={productDetail} />
         </Box>
       </div>
