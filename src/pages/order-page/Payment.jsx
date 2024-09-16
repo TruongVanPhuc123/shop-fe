@@ -20,13 +20,13 @@ export default function Payment({ dataCartItems, orderIdCreated, user }) {
   );
   const totalPrices = totalPriceItem?.reduce((total, item) => total + item, 0);
   const vatTax = (totalPrices * 10) / 100;
-  const totalAfterVAT = totalPrices + vatTax;
+  const totalAfterVAT = Math.ceil(totalPrices + vatTax).toFixed(3);
 
   const myBank = {
     BANK_ID: "MB",
     ACCOUNT_NO: "781234567891",
     TEMPLATE: "print",
-    AMOUNT: totalAfterVAT,
+    AMOUNT: totalAfterVAT.replace(".", ""),
   };
   let addInfo = `${orderIdCreated}`;
 
@@ -55,29 +55,20 @@ export default function Payment({ dataCartItems, orderIdCreated, user }) {
         >
           <Typography>Hi {name}</Typography>
           <Typography>
-            Your email is:{" "}
-            <span className="text-zinc-500 hover:border-b-2 cursor-pointer p-1">
-              {email}
-            </span>
+            Your email is: <span className="text-zinc-500 p-1">{email}</span>.
           </Typography>
           <Typography>
             Your address is:{" "}
-            <span className="text-zinc-500 hover:border-b-2 cursor-pointer p-1">
-              {" "}
-              {address}
-            </span>
+            <span className="text-zinc-500 p-1"> {address}</span>.
           </Typography>
           <Typography>
             Your phone number is:{" "}
-            <span className="text-zinc-500 hover:border-b-2 cursor-pointer p-1">
-              {" "}
-              {phoneNumber}
-            </span>
+            <span className="text-zinc-500 p-1"> {phoneNumber}</span>.
           </Typography>
         </Stack>
         <Divider />
       </Box>
-      {!btnOrder && !orderIdCreated ? (
+      {!btnOrder ? (
         <Button onClick={handleOrder} className="w-full">
           Order
         </Button>

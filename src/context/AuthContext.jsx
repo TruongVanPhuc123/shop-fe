@@ -2,6 +2,7 @@ import { createContext, useEffect, useReducer } from "react";
 import apiService from "@/app/apiService";
 import { isValidToken } from "../utils/jwt";
 import Swal from "sweetalert2";
+import setSession from "@/utils/setSession";
 
 const initialState = {
   isInitialized: false,
@@ -48,16 +49,6 @@ const reducer = (state, action) => {
   }
 };
 
-const setSession = (accessToken) => {
-  if (accessToken) {
-    window.localStorage.setItem("access_token", accessToken);
-    apiService.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-  } else {
-    window.localStorage.removeItem("access_token");
-    delete apiService.defaults.headers.common.Authorization;
-  }
-};
-
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -68,7 +59,6 @@ function AuthProvider({ children }) {
 
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
-
           const response = await apiService.get("/users/me");
           const { data } = response;
 
@@ -78,7 +68,6 @@ function AuthProvider({ children }) {
           });
         } else {
           setSession(null);
-
           dispatch({
             type: INITIALIZE,
             payload: { isAuthenticated: false, user: null },

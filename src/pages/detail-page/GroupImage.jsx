@@ -1,11 +1,14 @@
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 
 function GroupImage({ productDetail }) {
   return (
-    <Stack className="w-full" alignItems={"center"}>
-      <Box>
-        <img src={`${productDetail?.image}`} alt="" />
-      </Box>
+    <Stack alignItems={"center"} justifyContent={"center"}>
+      <img
+        className="rounded-lg"
+        width={"xl:w-[70%]"}
+        src={`${productDetail?.image}`}
+        alt=""
+      />
     </Stack>
   );
 }

@@ -159,7 +159,7 @@ export default function OrderProfile() {
                 </Typography>
               </TableCell>
               <TableCell>
-                {order.orderItems[0].productItemId?.price || 0}
+                {order.orderItems[0].productItemId?.price.toFixed(3) || 0}
               </TableCell>
               <TableCell>
                 {order.status.includes("accepted") ? (

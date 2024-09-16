@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import GroupImage from "./GroupImage";
 import GroupDetail from "./GroupDetail";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
 function index() {
   const { productDetail } = useSelector((state) => state.product);
@@ -26,9 +26,13 @@ function index() {
       justifyContent={"center"}
       className="w-full my-10"
     >
-      <div className="w-[80%] h-auto xl:flex xl:items-start gap-10  ">
-        <GroupImage productDetail={productDetail} />
-        <GroupDetail productDetail={productDetail} />
+      <div className="w-[80%] h-auto xl:flex xl:items-center gap-10  ">
+        <Box className="xl:w-[50%]">
+          <GroupImage productDetail={productDetail} />
+        </Box>
+        <Box className="w-50% mt-2">
+          <GroupDetail productDetail={productDetail} />
+        </Box>
       </div>
     </Stack>
   );

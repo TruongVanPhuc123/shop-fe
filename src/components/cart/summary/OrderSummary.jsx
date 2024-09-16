@@ -13,7 +13,7 @@ export default function OrderSummary({ data, button }) {
 
   const vatTax = Math.ceil((totalPrices * 10) / 100);
 
-  const totalAfterVAT = totalPrices + vatTax;
+  const totalAfterVAT = Math.ceil(totalPrices + vatTax).toFixed(3);
 
   return (
     <Stack spacing={3} className="bg-slate-50 p-5 rounded-sm">
@@ -48,7 +48,7 @@ export default function OrderSummary({ data, button }) {
         justifyContent={"space-between"}
       >
         <Typography className={"text-sm font-normal"}>V.A.T Tax</Typography>
-        <Typography className={"text-sm font-bold"}>{vatTax}</Typography>
+        <Typography className={"text-sm font-bold"}>{vatTax}.000</Typography>
       </Stack>
       <Divider />
       <Stack
@@ -57,7 +57,9 @@ export default function OrderSummary({ data, button }) {
         justifyContent={"space-between"}
       >
         <Typography className={"text-sm font-normal"}>Total Prices</Typography>
-        <Typography className={"text-sm font-bold"}>{totalPrices}</Typography>
+        <Typography className={"text-sm font-bold"}>
+          {totalPrices}.000
+        </Typography>
       </Stack>
       <Divider />
       <Stack

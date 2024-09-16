@@ -34,7 +34,7 @@ export default function Summary({ dataCartItems }) {
               {cartItem.quantity}
             </Typography>
             <Typography className={"text-xs text-gray-400"}>
-              {cartItem.productItemId.price * cartItem.quantity}
+              {cartItem.productItemId.price * cartItem.quantity}.000
             </Typography>
           </Stack>
         ))}

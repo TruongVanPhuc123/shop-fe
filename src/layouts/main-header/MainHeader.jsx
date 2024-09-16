@@ -3,22 +3,19 @@ import SelectClickTrue from "./logo-click/SelectClickTrue";
 import SelectClickFalse from "./logo-click/SelectClickFalse";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "@/feautures/user/UserSlice";
-import useAuth from "@/hooks/useAuth";
+import setSession from "@/utils/setSession";
 
 function MainHeader() {
-  const [logoClick, setLogoClick] = useState(false);
-
-  const dispatch = useDispatch();
+  const accessToken = window.localStorage.getItem("access_token");
   const { user, success } = useSelector((state) => state.user);
-
-  const auth = useAuth();
-  const authenticated = auth.isAuthenticated;
+  const [logoClick, setLogoClick] = useState(false);
+  const dispatch = useDispatch();
 
   const userName = user?.name;
   const avatarUrl = user?.avatarUrl;
   let id = user?._id;
 
-  if (authenticated === false) {
+  if (!accessToken) {
     id = null;
   }
 
@@ -27,8 +24,11 @@ function MainHeader() {
   };
 
   useEffect(() => {
-    dispatch(getCurrentUser());
-  }, [dispatch, success]);
+    if (accessToken) {
+      setSession(accessToken);
+      dispatch(getCurrentUser());
+    }
+  }, [success]);
 
   const logo = (
     <img width="58px" height="58px" src="/favicon.ico" alt="hippopotamus" />
@@ -56,7 +56,6 @@ function MainHeader() {
           userName={userName}
           id={id}
           avatarUrl={avatarUrl}
-          authenticated={authenticated}
         />
       )}
     </div>

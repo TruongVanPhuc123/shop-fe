@@ -62,8 +62,6 @@ export const createProduct = createAsyncThunk(
         Swal.fire({
           title: response.message,
           icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
         });
         setBtnCreateProduct(false);
       })
@@ -90,18 +88,16 @@ export const updateProduct = createAsyncThunk(
       .put(`/products/${id}`, body)
       .then((res) => {
         Swal.fire({
-          title: "Update Product Success",
+          title: "Update success !",
           text: res.message,
           icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
         });
         setBtnUpdateProduct(false);
       })
       .catch((error) => {
         Swal.fire({
-          title: "Update Product Failed",
-          text: "Error: " + error.message,
+          title: "Update failed !",
+          text: error.message,
           icon: "error",
         });
         setBtnUpdateProduct(false);
@@ -117,17 +113,15 @@ export const deleteProduct = createAsyncThunk(
       .delete(`/products/${id}`)
       .then((res) => {
         Swal.fire({
-          title: "Delete Product Success",
+          title: "Delete success !",
           text: res.message,
           icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
         });
       })
       .catch((error) => {
         Swal.fire({
-          title: "Delete Product Failed",
-          text: "Error: " + error.message,
+          title: "Delete failed !",
+          text: error.message,
           icon: "error",
         });
       });
@@ -143,20 +137,18 @@ export const createProductVariants = createAsyncThunk(
       .post(`/productItems`, body)
       .then(async (response) => {
         Swal.fire({
-          title: response.message,
+          title: "Create success !",
+          text: response.message,
           icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
         });
         setBtnCreateProductVariants(false);
         reset();
       })
       .catch((error) => {
         Swal.fire({
-          title: "Create Product Failed",
+          title: "Create failed",
           text: "Error: " + error.message,
           icon: "error",
-          showConfirmButton: false,
         });
         setBtnCreateProductVariants(false);
       });
@@ -170,19 +162,17 @@ export const updateProductVariants = createAsyncThunk(
       .put(`/productItems/${id}`, body)
       .then((res) => {
         Swal.fire({
-          title: "Update Product Variants Success",
+          title: "Update success !",
           text: res.message,
           icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
         });
         reset();
         setBtnUpdateProductVariants(false);
       })
       .catch((error) => {
         Swal.fire({
-          title: "Update Product Variants Failed",
-          text: "Error: " + error.message,
+          title: "Update failed !",
+          text: error.message,
           icon: "error",
         });
         setBtnUpdateProductVariants(false);
@@ -198,16 +188,14 @@ export const deleteProductVariants = createAsyncThunk(
       .delete(`/productItems/${id}`)
       .then((res) => {
         Swal.fire({
-          title: "Delete Product Variants Success",
+          title: "Delete success !",
           text: res.message,
           icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
         });
       })
       .catch((error) => {
         Swal.fire({
-          title: "Delete Product Variants Failed",
+          title: "Delete failed !",
           text: "Error: " + error.message,
           icon: "error",
         });

@@ -23,15 +23,20 @@ export default function SelectProduct({ setSort }) {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
+          <SelectItem value={"all"}>
+            <Typography className={"flex items-center justify-center"}>
+              All prices
+            </Typography>
+          </SelectItem>
           <SelectItem value={"increase"}>
             <Typography className={"flex items-center justify-center"}>
               Price <MdNavigateNext />
-              10,000{" "}
+              200,000{" "}
             </Typography>
           </SelectItem>
           <SelectItem value={"decrease"}>
             <Typography className={"flex items-center justify-center"}>
-              Price <MdNavigateBefore /> 10,000
+              Price <MdNavigateBefore /> 200,000
             </Typography>
           </SelectItem>
         </SelectGroup>

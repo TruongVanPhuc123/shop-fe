@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Typography from "@/components/Typography";
 import { getCartItems } from "@/feautures/cart/CartSlice";
 import DropMenuBeforeLogin from "@/components/DropMenuBeforeLogin";
+import setSession from "@/utils/setSession";
 
 export default function SelectClickFalse({
   hanldeClick,
@@ -16,14 +17,17 @@ export default function SelectClickFalse({
   id,
   avatarUrl,
 }) {
+  const accessToken = window.localStorage.getItem("access_token");
   const { cartItems, success } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
-  const count = cartItems?.count;
+  let count = cartItems?.count;
 
   useEffect(() => {
-    dispatch(getCartItems());
-  }, [dispatch, success]);
+    if (accessToken) {
+      setSession(accessToken);
+      dispatch(getCartItems());
+    }
+  }, [success]);
 
   return (
     <Box className="px-5 py-2 w-full">

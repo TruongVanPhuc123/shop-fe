@@ -36,16 +36,16 @@ const checKPayment = async (price, id, navigate) => {
 
         navigate("/");
         Swal.fire({
-          title: "Success Payment",
-          text: "Thank you for your order",
+          title: "Payment success !",
+          text: "Thanks for your order !",
           icon: "success",
         });
       } else {
-        console.log("Order faild");
+        console.log("Order faild !");
       }
     } catch (error) {
       Swal.fire({
-        title: "Error Payment",
+        title: "Error Payment !",
         text: error.message,
       });
     }
@@ -77,21 +77,33 @@ export const getOrdersByCurrentUserId = createAsyncThunk(
 
 export const createOrder = createAsyncThunk(
   "createOrder",
-  async ({ body, navigate }) => {
+  async ({ body, navigate, setBtnOrder }) => {
     try {
       const response = await apiService.post(`/orders`, body);
-      setInterval(() => {
+      const timePayment = setInterval(() => {
         checKPayment(body.totalPrices, response.data._id, navigate);
       }, 2000);
+      setTimeout(async () => {
+        clearInterval(timePayment);
+
+        Swal.fire({
+          title: "Payment failed !",
+          text: "Please rescan QR to payment !",
+          icon: "warning",
+        });
+
+        setBtnOrder(false);
+
+        await apiService.delete(`/orders/${response.data._id}`);
+      }, 80000);
       return response;
     } catch (error) {
       Swal.fire({
-        title: "Error creating order",
+        title: "Creating error !",
         text: error.message,
         icon: "warning",
       }).then(() => {
-        window.open("/profile");
-        window.close("/order");
+        navigate("/profile");
       });
     }
   }
@@ -104,15 +116,15 @@ export const deleteOrder = createAsyncThunk(
       .delete(`/orders/${orderId}`)
       .then(() => {
         Swal.fire({
-          title: "Delete Order",
-          text: "Order deleted",
+          title: "Delete success !",
+          text: "Order deleted !",
           icon: "success",
         });
         setBtnDeleteOrder(false);
       })
       .catch((error) => {
         Swal.fire({
-          title: "Delete Order",
+          title: "Delete error !",
           text: error.message,
           icon: "error",
         });
@@ -128,17 +140,15 @@ export const deleteOrderItem = createAsyncThunk(
       .delete(`/orderItems/${orderItemId}`)
       .then(() => {
         Swal.fire({
-          title: "Delete Order Item",
-          text: "Order item deleted",
+          title: "Delete success !",
+          text: "Order item deleted !",
           icon: "success",
-          showConfirmButton: false,
-          timer: 2500,
         });
         setBtnDeleteOrder(false);
       })
       .catch((error) => {
         Swal.fire({
-          title: "Delete Order Item",
+          title: "Delete error !",
           text: error.message,
           icon: "error",
         });

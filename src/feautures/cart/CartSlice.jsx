@@ -21,17 +21,16 @@ export const createAndResetCartItems = createAsyncThunk(
       .post(`/cartItems`, body)
       .then((res) => {
         Swal.fire({
-          title: res.message,
+          title: "Create success !",
+          text: res.message,
           icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
         });
         setBtnAddToCart(false);
       })
       .catch((err) => {
         Swal.fire({
-          title: "Failed to add to cart !",
-          text: "Error: " + err.message,
+          title: "Add to cart failed !",
+          text: err.message,
           icon: "error",
         });
         setBtnAddToCart(false);
@@ -48,17 +47,15 @@ export const updateCartItem = createAsyncThunk(
       .put(`/cartItems/${id}`, body)
       .then((response) => {
         Swal.fire({
-          title: "Update item success !",
+          title: "Update success !",
           text: response.message,
           icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
         });
         action(false);
       })
       .catch((err) => {
         Swal.fire({
-          title: "Update item success !",
+          title: "Update error!",
           text: err.message,
           icon: "error",
         });
@@ -74,18 +71,17 @@ export const deleteCartItem = createAsyncThunk(
   async ({ id }) => {
     await apiService
       .delete(`/cartItems/${id}`)
-      .then(() => {
+      .then((res) => {
         Swal.fire({
-          title: "Remove item success !",
+          title: "Delete success !",
+          text: "Delete cart item success !",
           icon: "success",
-          showConfirmButton: false,
-          timer: 1500,
         });
       })
       .catch((err) => {
         Swal.fire({
-          title: "Failed to add to cart !",
-          text: "Error: " + err.message,
+          title: "Delete failed !",
+          text: err.message,
           icon: "error",
         });
       });

@@ -1,4 +1,5 @@
 import apiService from "@/app/apiService";
+import useAuth from "@/hooks/useAuth";
 import { cloudinaryUpload } from "@/utils/Cloudinary";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
@@ -21,18 +22,16 @@ export const updateUser = createAsyncThunk(
       .put(`/users/${id}`, body)
       .then((res) => {
         Swal.fire({
-          title: "Update User Success",
+          title: "Update success !",
           text: res.message,
           icon: "success",
-          showConfirmButton: false,
-          timer: 2500,
         });
         setBtnUpdateUser(false);
       })
       .catch((error) => {
         Swal.fire({
-          title: "Update User Failed",
-          text: "Error: " + error.message,
+          title: "Update failed !",
+          text: error.message,
           icon: "error",
         });
         setBtnUpdateUser(false);
@@ -61,6 +60,7 @@ export const UserSlice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.status = "success";
+        console.log(action.payload);
         state.user = action.payload.data;
         state.message = action.payload.message;
         state.success = action.payload.success;

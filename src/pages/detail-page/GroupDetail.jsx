@@ -11,6 +11,8 @@ import { useState } from "react";
 import { SelectVariants } from "@/components/select/SelectVariants";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
+import { FaCartPlus } from "react-icons/fa";
+
 const schema = yup.object({
   quantity: yup.number(),
 });
@@ -57,62 +59,71 @@ function GroupDetail({ productDetail }) {
   };
 
   return (
-    <Stack spacing={3} justifyContent={"start"} className="w-full h-full ">
+    <Stack
+      spacing={3}
+      justifyContent={"center"}
+      alignItems={"center"}
+      className="w-full h-full "
+    >
       <Typography className="text-3xl font-bold">{name}</Typography>
       <Stack direction={"row"} spacing={2}>
         <Typography className="text-xl font-medium">
-          Category: {category}
+          Category: <span className="text-gray-500">{category}</span>
         </Typography>
       </Stack>
       <Typography className="text-xl font-bold text-gray-500">
-        Price: {price || 0}
+        Price: {price ? price + ".000" : 0} VNĐ
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={3}>
+        <Stack spacing={3} justifyContent={"center"} alignItems={"center"}>
           <Stack direction={"row"} spacing={2}>
             <SelectVariants
               name="Variants"
               array={arrayProductVariants}
               setProductItem={setProductItem}
             />
-          </Stack>
-          <Stack
-            direction={"row"}
-            alignItems={"center"}
-            className="w-[100%]"
-            spacing={1}
-          >
-            <Typography className={"font-medium"}>Quantity :</Typography>
             <Stack
               direction={"row"}
               alignItems={"center"}
-              width={"30%"}
-              spacing={2}
+              justifyContent={"center"}
+              className="w-full"
+              spacing={1}
             >
-              <Button
-                onClick={handlePrevQuantity}
-                variant="outline"
-                className="w-5 h-6"
-                type="button"
+              <Typography className={"font-medium"}>Quantity :</Typography>
+              <Stack
+                direction={"row"}
+                alignItems={"center"}
+                width={"30%"}
+                spacing={2}
               >
-                -
-              </Button>
-              <Typography {...register("quantity")}>{quantity}</Typography>
-              <Button
-                onClick={handleNextQuantity}
-                variant="outline"
-                className="w-5 h-6"
-                type="button"
-              >
-                +
-              </Button>
+                <Button
+                  onClick={handlePrevQuantity}
+                  variant="outline"
+                  className="w-5 h-6"
+                  type="button"
+                >
+                  -
+                </Button>
+                <Typography {...register("quantity")}>{quantity}</Typography>
+                <Button
+                  onClick={handleNextQuantity}
+                  variant="outline"
+                  className="w-5 h-6"
+                  type="button"
+                >
+                  +
+                </Button>
+              </Stack>
             </Stack>
           </Stack>
-          <Typography>{description}</Typography>
+          <Typography className={"text-center"}>{description}.</Typography>
           {!btnAddToCart ? (
             <div className="xl:w-[30%] w-full">
               <Button type="submit" className="w-full">
-                Add to cart
+                <Stack direction={"row"} alignItems={"center"} spacing={1}>
+                  <FaCartPlus />
+                  <Typography>Add to cart</Typography>
+                </Stack>
               </Button>
             </div>
           ) : (

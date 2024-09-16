@@ -101,7 +101,9 @@ export function DialogOrder({
                         </Typography>
                       </Stack>
                     </TableCell>
-                    <TableCell>{orderItem.productItemId.price}</TableCell>
+                    <TableCell>
+                      {orderItem.productItemId.price.toFixed(3)}
+                    </TableCell>
                     <TableCell>
                       {data.status.includes("accepted") ? (
                         <></>

@@ -21,27 +21,23 @@ export function CardProduct({
           {nameCard}
         </CardTitle>
       )}
-      {description && (
-        <CardDescription className="text-center text-sm text-pretty uppercase tracking-tight">
-          {description}
-        </CardDescription>
-      )}
-      <div className="xl:flex items-center justify-between w-full">
+      <Stack direction={"row"} alignItems={"center"} spacing={2}>
+        {description && (
+          <CardDescription className="text-center text-sm text-pretty uppercase tracking-tight">
+            {description}
+          </CardDescription>
+        )}
         {price && (
-          <Typography
-            className={
-              "text-sky-600 hover:border-b-2 cursor-pointer text-[12px] xl:text-[17px]"
-            }
-          >
+          <Typography className={"text-rose-300 text-[12px] xl:text-[17px]"}>
             {price}
           </Typography>
         )}
-        {button && (
-          <Button className="w-[100%] lg:w-[40%]" onClick={handleDetail}>
-            Detail
-          </Button>
-        )}
-      </div>
+      </Stack>
+      {button && (
+        <Button className="w-[100%] lg:w-[50%]" onClick={handleDetail}>
+          Detail
+        </Button>
+      )}
     </Card>
   );
 }

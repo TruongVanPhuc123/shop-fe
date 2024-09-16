@@ -112,7 +112,7 @@ export default function Profile() {
                   type="text"
                   {...register("name")}
                 />
-                <Typography className={"text-sm text-lime-500"}>
+                <Typography className={"text-sm text-rose-500"}>
                   Please type your new username
                 </Typography>
               </Box>
@@ -136,7 +136,7 @@ export default function Profile() {
             <Typography className={"font-bold"}>Phone Number</Typography>
             <Input
               placeholder="Phone Number"
-              type="number"
+              type="text"
               disabled
               value={phoneNumber}
             />
@@ -144,10 +144,10 @@ export default function Profile() {
               <Box>
                 <Input
                   placeholder="Phone Number"
-                  type="number"
+                  type="text"
                   {...register("phoneNumber")}
                 />
-                <Typography className={"text-sm text-lime-500"}>
+                <Typography className={"text-sm text-rose-500"}>
                   Please type your new phone number
                 </Typography>
               </Box>
@@ -174,7 +174,7 @@ export default function Profile() {
                 type="text"
                 {...register("address")}
               />
-              <Typography className={"text-sm text-lime-500"}>
+              <Typography className={"text-sm text-rose-500"}>
                 Please type your new address
               </Typography>
             </Box>
@@ -197,7 +197,7 @@ export default function Profile() {
                 ref={fileURL}
                 onChange={handleFile}
               />
-              <Typography className={"text-sm text-lime-500"}>
+              <Typography className={"text-sm text-rose-500"}>
                 Please type your new phone number
               </Typography>
             </Box>

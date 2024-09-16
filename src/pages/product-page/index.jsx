@@ -15,7 +15,6 @@ function index() {
   const [limit, setLimit] = useState(8);
   const [search, setSearch] = useState("All");
   const [sort, setSort] = useState(null);
-  console.log(sort);
 
   const data = products.products;
   const totalPages = products.totalPages;

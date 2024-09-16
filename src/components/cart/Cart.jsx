@@ -35,11 +35,11 @@ export function Cart() {
     <Stack className="w-[80%] m-auto py-20 " spacing={5}>
       <Typography className={"text-2xl font-bold"}>Shopping Cart</Typography>
       {count > 0 ? (
-        <div className="items-start w-full gap-10 md:flex">
-          <div className="md:w-[60%] h-[500px] overflow-scroll">
+        <div className="items-start justify-between w-full gap-10 xl:flex">
+          <div className="xl:w-[60%] overflow-auto">
             <CartItem data={data} handleActions={handleActions} />
           </div>
-          <div className="md:w-[40%]">
+          <div className="xl:w-[40%] mt-2">
             <OrderSummary data={data} button={true} />
           </div>
         </div>

@@ -24,7 +24,7 @@ function Products({
             nameCard={element.name}
             imgStyles={"w-[100%] rounded-xl"}
             description={`${element.brand} - ${element.category}`}
-            price={`${element.productItems[0]?.price || 0} - VNĐ`}
+            price={`${element.productItems[0]?.price.toFixed(3) || 0} VNĐ`}
             button={true}
             handleDetail={() => handleDetail(element._id)}
           />
