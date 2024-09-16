@@ -10,7 +10,7 @@ function index() {
       <HomeShow />
       <HomeUtilities />
       <HomeMoreProducts />
-      <HomeInstructAccount />s
+      <HomeInstructAccount />
       <HomeBestProduct />
     </div>
   );
