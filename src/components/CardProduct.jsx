@@ -21,7 +21,7 @@ export function CardProduct({
           {nameCard}
         </CardTitle>
       )}
-      <Stack direction={"row"} alignItems={"center"} spacing={2}>
+      <div className="xl:flex items-center gap-2">
         {description && (
           <CardDescription className="text-center text-sm text-pretty uppercase tracking-tight">
             {description}
@@ -32,7 +32,7 @@ export function CardProduct({
             {price}
           </Typography>
         )}
-      </Stack>
+      </div>
       {button && (
         <Button className="w-[100%] lg:w-[50%]" onClick={handleDetail}>
           Detail
