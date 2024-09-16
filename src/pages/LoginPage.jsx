@@ -79,7 +79,7 @@ function LoginPage() {
                 to={"/register"}
                 className="hover:border-b-2 hover:border-blue-500 text-blue-500"
               >
-                You haven`t account?
+                You hasn`t account?
               </Link>
             </div>
             <Input placeholder="Email" {...register("email")} type="text" />

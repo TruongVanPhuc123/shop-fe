@@ -83,7 +83,7 @@ function RegisterPage() {
                 to={"/login"}
                 className="hover:border-b-2 hover:border-blue-500 text-blue-500"
               >
-                You have a account?
+                You has account?
               </Link>
             </div>
             <Input placeholder="Username" {...register("name")} />

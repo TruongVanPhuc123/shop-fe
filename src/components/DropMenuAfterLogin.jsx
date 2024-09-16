@@ -48,7 +48,7 @@ export default function DropMenuAfterLogin() {
             <Box className="mr-2">
               <GiClothes />
             </Box>
-            <Typography className={"font-medium"}>Product</Typography>
+            <Typography className={"font-medium"}>Products</Typography>
           </DropdownMenuItem>
         </Link>
         <Link to={"/cart"}>

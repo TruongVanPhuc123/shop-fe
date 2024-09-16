@@ -72,7 +72,7 @@ export default function SelectClickFalse({
               </Box>
             ) : (
               <Stack direction={"row"} alignItems={"center"}>
-                <div className="flex items-center sm:flex hidden">
+                <div className=" items-center sm:flex hidden">
                   {" "}
                   <IconButton size="medium">
                     <Link to={"/cart"}>
